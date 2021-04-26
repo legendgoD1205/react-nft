@@ -15,9 +15,9 @@ const NFAStaked = ({imgSrc, count, text, bgColor}) => {
       position: 'absolute',
       top: '12px',
       left: '12px',
-      width: '32px',
-      height: '32px',
-      padding: '12px 12px',
+      width: '25px',
+      height: '25px',
+      padding: '10px 10px',
       borderRadius: '10px',
       backgroundColor: 'white',
     },
@@ -31,7 +31,8 @@ const NFAStaked = ({imgSrc, count, text, bgColor}) => {
       color: "white"
     },
     title: {
-      color: "white"
+      color: "white",
+      fontWeight: '700',
     }
   });
   console.log(bgColor);

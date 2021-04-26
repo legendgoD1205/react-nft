@@ -14,7 +14,7 @@ const NFAStacked = ({Icon}) => {
     root: {
       borderRadius: '12px',
       padding: theme.spacing(1),
-      background: '#cdd5d2',
+      background: '#f1f1f1',
     },
     title: {
       textTransform: 'uppercase',

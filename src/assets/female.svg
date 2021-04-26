@@ -9,6 +9,6 @@
     <dc:title>Female black symbol</dc:title>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
   </cc:Work></rdf:RDF></metadata>
-  <ellipse fill="none" stroke-width="34.5396" stroke="#000000" cx="133" cy="130.785" rx="115.7302" ry="113.5152"/>
-  <path d="M109.47,257V303.505H56.2729V345.722H109.47V400H156.53V345.722H207.681V303.505H156.53V257Z"/>
+  <ellipse fill="none" stroke-width="34.5396" stroke="#EC77EC" cx="133" cy="130.785" rx="115.7302" ry="113.5152"/>
+  <path d="M109.47,257V303.505H56.2729V345.722H109.47V400H156.53V345.722H207.681V303.505H156.53V257Z" fill="#EC77EC"/>
 </svg>

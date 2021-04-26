@@ -2,7 +2,7 @@ import React from "react";
 import NFAStaked from './components/NFAStaked'
 import NFSCard from './components/NFACard';
 import Stake from './components/Stake';
-import {Grid} from '@material-ui/core'
+import {Grid, Paper, Container, Box} from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
 import Logo from './assets/logo.png'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -18,9 +18,7 @@ function Dashboard() {
     root: {
       padding: theme.spacing(4),
       maxWidth: '1280px',
-      width: '100%',
       height: '100vh',
-      backgroundColor: theme.palette.error.light
     },
     logo: {
       marginTop: theme.spacing(2),
@@ -33,55 +31,59 @@ function Dashboard() {
     },
     title: {
       margin: theme.spacing(2),
-      fontSize: '2rem',
-      fontFamily: 'Coda Caption'
+      fontSize: '18px',
+      fontWeight: 'bold'
     }
   }));
 
   const classes = useStyles();
 
   return (
-    <Grid container justify="center">
-      <Grid className={classes.root}>
-        <Grid className={classes.logo} container justify="center" alignItems="flex-start">
-          <img src={Logo}  alt="logo"/>
-        </Grid>
-        <Grid container spacing={4}>
-          <Grid item xs={3}>
-            <NFAStaked bgColor={theme.palette.secondary.light} imgSrc={FemaleSvg} count={150} text="NFA FEMALES STAKED" />
-          </Grid>
-          <Grid item xs={3}>
-            <NFAStaked bgColor={theme.palette.primary.main} imgSrc={MaleSvg} count={250} text="NFA MALES STAKED"  />
-          </Grid>
-          <Grid item xs={3}>
-            <NFAStaked bgColor={theme.palette.primary.light} imgSrc={BabySvg} count={50} text="NFA BABIES STAKED" />
-          </Grid>
-          <Grid item xs={3}>
-            <NFAStaked bgColor={theme.palette.third.light} imgSrc={UsersSvg} count={25} text="NFA FAMILIES STAKED" />
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Typography className={classes.title} variant="h4">MY NAFS</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <NFSCard Icon={AddCircleOutlineIcon} />
-        </Grid>
-        <Grid container spacing={4}>
-          <Grid item xs={6}>
-            <Grid item>
-              <Typography className={classes.title} variant="h4">STAKE</Typography>
+    <Container justify="center">
+      <Paper elevation={1}>
+        <Box p={6}>
+          <Grid className={classes.root}>
+            <Grid className={classes.logo} container justify="center" alignItems="flex-start">
+              <img src={Logo}  alt="logo"/>
             </Grid>
-            <Stake />
-          </Grid>
-          <Grid item xs={6}>
+            <Grid container spacing={4}>
+              <Grid item xs={3}>
+                <NFAStaked bgColor={theme.palette.secondary.light} imgSrc={FemaleSvg} count={150} text="NFA FEMALES STAKED" />
+              </Grid>
+              <Grid item xs={3}>
+                <NFAStaked bgColor={theme.palette.primary.main} imgSrc={MaleSvg} count={250} text="NFA MALES STAKED"  />
+              </Grid>
+              <Grid item xs={3}>
+                <NFAStaked bgColor={theme.palette.primary.light} imgSrc={BabySvg} count={50} text="NFA BABIES STAKED" />
+              </Grid>
+              <Grid item xs={3}>
+                <NFAStaked bgColor={theme.palette.third.light} imgSrc={UsersSvg} count={25} text="NFA FAMILIES STAKED" />
+              </Grid>
+            </Grid>
             <Grid item>
               <Typography className={classes.title} variant="h4">MY NAFS</Typography>
             </Grid>
-            <Stake />
+            <Grid item xs={12}>
+              <NFSCard Icon={AddCircleOutlineIcon} />
+            </Grid>
+            <Grid container spacing={4}>
+              <Grid item xs={6}>
+                <Grid item>
+                  <Typography className={classes.title} variant="h4">STAKE</Typography>
+                </Grid>
+                <Stake />
+              </Grid>
+              <Grid item xs={6}>
+                <Grid item>
+                  <Typography className={classes.title} variant="h4">MY NAFS</Typography>
+                </Grid>
+                <Stake />
+              </Grid>
+            </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+        </Box>
+      </Paper>
+    </Container>
   );
 }
 

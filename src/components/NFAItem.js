@@ -6,6 +6,9 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyes = makeStyles(theme => ({
   root: {
+    '& .MuiTypography-root': {
+      fontWeight: 'bold',
+    },
   },
   icon: {
     margin: theme.spacing(1),
@@ -28,7 +31,7 @@ const useStyes = makeStyles(theme => ({
 const NFAItem = ({title, imgSrc, count}) => {
   const classes = useStyes();
   return(
-    <Grid>
+    <Grid className={classes.root}>
       <Grid container direction="column" alignItems="center">
         <Grid container direction="row" alignItems="center">
           <img className={classes.icon} src={imgSrc}  alt="avatar"/>

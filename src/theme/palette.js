@@ -9,20 +9,20 @@ export default {
   primary: {
     contrastText: white,
     dark: colors.teal[900],
-    main: colors.teal[500],
-    light: colors.teal[300]
+    main: '#00ba95',
+    light: '#75f7bb',
   },
   secondary: {
     contrastText: white,
     dark: colors.purple[900],
     main: colors.purple['A400'],
-    light: colors.purple['400']
+    light: '#EC77EC',
   },
   third: {
     contrastText: white,
     dark: colors.orange[900],
     main: colors.orange['A200'],
-    light: colors.orange[200]
+    light: '#eeb663',
   },
   success: {
     contrastText: white,

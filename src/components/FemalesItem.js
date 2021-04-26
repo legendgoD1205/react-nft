@@ -6,10 +6,14 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyes = makeStyles(theme => ({
   root: {
+    '& h4.MuiTypography-root': {
+      fontWeight: 'bold',
+      paddingLeft: '8px',
+    },
   },
   icon: {
     margin: theme.spacing(1),
-    width: '16px',
+    width: 'auto',
     height: '16px',
     padding: '4px',
     borderRadius: '18px',
@@ -28,7 +32,7 @@ const NFAItem = ({imgSrc, neverGiven, oneChild, twoChild}) => {
       <Grid container direction="column" alignItems="center">
         <Grid container direction="row" alignItems="center">
           <img className={classes.icon} src={imgSrc}  alt="avatar"/>
-          <Typography style={{fontSize: 24}} >FEMALES</Typography>
+          <Typography style={{fontSize: 24, fontWeight: "bold"}} >FEMALES</Typography>
         </Grid>
         <Grid className={classes.text} container direction="row" alignItems="center">
           <Typography variant="h5">Never Given birth: </Typography>
