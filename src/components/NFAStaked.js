@@ -35,7 +35,6 @@ const NFAStaked = ({imgSrc, count, text, bgColor}) => {
       fontWeight: '700',
     }
   });
-  console.log(bgColor);
 
   const classes = useStyles();
   return (
