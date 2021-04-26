@@ -9,28 +9,32 @@ const useStyes = makeStyles(theme => ({
   },
   icon: {
     margin: theme.spacing(1),
-    width: '28px',
-    height: '28px',
-    padding: '10px',
+    width: '16px',
+    height: '16px',
+    padding: '4px',
     borderRadius: '18px',
     backgroundColor: 'white',
   },
   count: {
+    margin: theme.spacing(1),
     padding: '20px',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    width: '36px',
+    height: '28px',
+    borderRadius: '10px'
   }
 }));
 
-const NFAItem = ({imgSrc, count}) => {
+const NFAItem = ({title, imgSrc, count}) => {
   const classes = useStyes();
   return(
     <Grid>
       <Grid container direction="column" alignItems="center">
         <Grid container direction="row" alignItems="center">
           <img className={classes.icon} src={imgSrc}  alt="avatar"/>
-          <Typography variant="h3" >MALES</Typography>
+          {title}
         </Grid>
-        <Typography className={classes.count} variant="h2">{count}</Typography>
+        <Typography className={classes.count} variant="h2" align="center">{count}</Typography>
       </Grid>
     </Grid>
   )

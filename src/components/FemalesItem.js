@@ -9,15 +9,15 @@ const useStyes = makeStyles(theme => ({
   },
   icon: {
     margin: theme.spacing(1),
-    width: '28px',
-    height: '28px',
-    padding: '10px',
+    width: '16px',
+    height: '16px',
+    padding: '4px',
     borderRadius: '18px',
     backgroundColor: 'white',
   },
   text: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1)
+    marginLeft: theme.spacing(1),
+    marginTop: theme.spacing(1)
   },
 }));
 
@@ -28,7 +28,7 @@ const NFAItem = ({imgSrc, neverGiven, oneChild, twoChild}) => {
       <Grid container direction="column" alignItems="center">
         <Grid container direction="row" alignItems="center">
           <img className={classes.icon} src={imgSrc}  alt="avatar"/>
-          <Typography variant="h3" >FEMALES</Typography>
+          <Typography style={{fontSize: 24}} >FEMALES</Typography>
         </Grid>
         <Grid className={classes.text} container direction="row" alignItems="center">
           <Typography variant="h5">Never Given birth: </Typography>

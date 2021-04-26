@@ -1,7 +1,7 @@
 import React from "react";
 import NFAStaked from './components/NFAStaked'
 import NFSCard from './components/NFACard';
-import StackCard from './components/Stake';
+import Stake from './components/Stake';
 import {Grid} from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
 import Logo from './assets/logo.png'
@@ -69,15 +69,15 @@ function Dashboard() {
         <Grid container spacing={4}>
           <Grid item xs={6}>
             <Grid item>
-              <Typography className={classes.title} variant="h4">MY NAFS</Typography>
+              <Typography className={classes.title} variant="h4">STAKE</Typography>
             </Grid>
-            <StackCard Icon={AddCircleOutlineIcon} />
+            <Stake />
           </Grid>
           <Grid item xs={6}>
             <Grid item>
               <Typography className={classes.title} variant="h4">MY NAFS</Typography>
             </Grid>
-            <StackCard Icon={AddCircleOutlineIcon} />
+            <Stake />
           </Grid>
         </Grid>
       </Grid>

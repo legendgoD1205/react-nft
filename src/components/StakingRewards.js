@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
-const NFAStacked = ({Icon}) => {
+const StakingReward = ({Icon}) => {
   const useStyles = makeStyles({
     card: {
       borderRadius: '12px',
@@ -40,4 +40,4 @@ const NFAStacked = ({Icon}) => {
   )
 }
 
-export default NFAStacked
+export default StakingReward

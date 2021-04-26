@@ -1,43 +1,49 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import FemaleSvg from '../assets/female.svg';
+import MaleSvg from '../assets/male.svg';
+import BabySvg from '../assets/baby.svg';
+import UsersSvg from '../assets/family.svg';
 
-const NFAStacked = ({Icon}) => {
-  const useStyles = makeStyles({
-    card: {
+const Stake = () => {
+  const useStyles = makeStyles(theme => ({
+    root: {
+      padding: theme.spacing(2),
       borderRadius: '12px',
       height: '180px',
       background: '#ee6688',
       position: 'relative'
     },
     icon: {
-      position: 'absolute',
-      top: '12px',
-      left: '12px',
-      padding: '12px 18px',
+      margin: theme.spacing(1),
+      width: '24px',
+      height: '24px',
+      padding: '12px',
       borderRadius: '10px',
-      background: '#ddd',
-      '& svg>path': {
-        fill: 'transparent',
-      },
+      backgroundColor: 'white',
     },
-    text: {
-      position: 'absolute',
-      bottom: '12px',
-      right: '12px',
-    },
-  });
+  }));
 
   const classes = useStyles();
 
   return (
-    <Grid item className = {classes.card}>
-      <Icon className={classes.icon} />
-      <Grid className={classes.text}>
-        Hello
+    <Grid container className = {classes.root}>
+      <Grid item xs={8} container direction="column" justify="flex-start" alignItems="flex-start" spacing={1}>
+        <Grid container direction="row" alignItems="center">
+          <img className={classes.icon} src={FemaleSvg}  alt="avatar"/>
+          Hello
+        </Grid>
+        <Grid>
+        </Grid>
+
+
+      </Grid>
+      <Grid item xs={4}>
+        a
       </Grid>
     </Grid>
   )
 }
 
-export default NFAStacked
+export default Stake
