@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/styles'
 import FemaleSvg from '../assets/female.svg';
 import MaleSvg from '../assets/male.svg';
 import BabySvg from '../assets/baby.svg';
-import UsersSvg from '../assets/family.svg';
+import FlagSvg from '../assets/flag.png';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
@@ -59,7 +59,7 @@ const Stake = () => {
           <Grid className={classes.inputField} />
         </Grid>
         <Grid container direction="row" alignItems="center">
-          <img className={classes.icon} src={UsersSvg}  alt="avatar"/>
+          <img className={classes.icon} src={FlagSvg}  alt="avatar"/>
           <Grid className={classes.inputField} />
         </Grid>
       </Grid>
