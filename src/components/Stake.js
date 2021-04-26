@@ -6,8 +6,6 @@ const NFAStacked = ({Icon}) => {
   const useStyles = makeStyles({
     card: {
       borderRadius: '12px',
-      flexBasis: '25%',
-      flexGrow: '25%',
       height: '180px',
       background: '#ee6688',
       position: 'relative'
@@ -28,9 +26,9 @@ const NFAStacked = ({Icon}) => {
       bottom: '12px',
       right: '12px',
     },
-  })
+  });
 
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Grid item className = {classes.card}>

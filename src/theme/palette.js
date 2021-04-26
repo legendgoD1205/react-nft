@@ -10,13 +10,13 @@ export default {
     contrastText: white,
     dark: colors.teal[900],
     main: colors.teal[500],
-    light: colors.teal[100]
+    light: colors.teal[300]
   },
   secondary: {
     contrastText: white,
     dark: colors.purple[900],
     main: colors.purple['A400'],
-    light: colors.purple['A400']
+    light: colors.purple['400']
   },
   third: {
     contrastText: white,
