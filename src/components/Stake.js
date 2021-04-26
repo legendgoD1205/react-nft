@@ -5,24 +5,38 @@ import FemaleSvg from '../assets/female.svg';
 import MaleSvg from '../assets/male.svg';
 import BabySvg from '../assets/baby.svg';
 import UsersSvg from '../assets/family.svg';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 const Stake = () => {
   const useStyles = makeStyles(theme => ({
     root: {
       padding: theme.spacing(2),
       borderRadius: '12px',
-      height: '180px',
       background: '#ee6688',
       position: 'relative'
     },
     icon: {
       margin: theme.spacing(1),
-      width: '24px',
-      height: '24px',
+      width: '20px',
+      height: '20px',
       padding: '12px',
-      borderRadius: '10px',
+      borderRadius: '18px',
       backgroundColor: 'white',
     },
+    inputField: {
+      flexGrow: 1,
+      backgroundColor: 'white',
+      marginLeft: '20px',
+      marginRight: '20px',
+      height: '40px',
+      borderRadius: '12px',
+    },
+    button: {
+      margin: theme.spacing(1),
+      padding: '12px 60px',
+      borderRadius: '12px',
+    }
   }));
 
   const classes = useStyles();
@@ -32,15 +46,25 @@ const Stake = () => {
       <Grid item xs={8} container direction="column" justify="flex-start" alignItems="flex-start" spacing={1}>
         <Grid container direction="row" alignItems="center">
           <img className={classes.icon} src={FemaleSvg}  alt="avatar"/>
-          Hello
+          <Grid className={classes.inputField} >&nbsp;</Grid>
         </Grid>
-        <Grid>
+        <Grid container direction="row" alignItems="center">
+          <img className={classes.icon} src={FemaleSvg}  alt="avatar"/>
+          <Grid className={classes.inputField} />
         </Grid>
-
-
+        <Grid container direction="row" alignItems="center">
+          <img className={classes.icon} src={FemaleSvg}  alt="avatar"/>
+          <Grid className={classes.inputField} />
+        </Grid>
+        <Grid container direction="row" alignItems="center">
+          <img className={classes.icon} src={FemaleSvg}  alt="avatar"/>
+          <Grid className={classes.inputField} />
+        </Grid>
       </Grid>
-      <Grid item xs={4}>
-        a
+      <Grid item xs={4} container alignItems="flex-end" justify="center">
+        <Button variant="contained" color="primary" className={classes.button}>
+          STAKE
+        </Button>
       </Grid>
     </Grid>
   )

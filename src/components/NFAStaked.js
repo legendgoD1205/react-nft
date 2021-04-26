@@ -34,7 +34,6 @@ const NFAStaked = ({imgSrc, count, text, bgColor}) => {
       color: "white"
     }
   });
-  console.log(bgColor);
 
   const classes = useStyles();
   return (
