@@ -1,9 +1,7 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
-import Divider from "@material-ui/core/Divider";
+import {Grid} from '@material-ui/core'
+import {makeStyles} from '@material-ui/styles'
 import BabySvg from '../assets/baby.svg';
-import FemaleSvg from "../assets/female.svg";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
@@ -58,7 +56,7 @@ const StakingReward = ({Icon}) => {
     },
     days: {
       letterSpacing: '2px',
-      fontSize: '14px',
+      fontSize: '16px',
       fontWeight: 700
     },
     button: {
