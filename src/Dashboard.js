@@ -2,7 +2,7 @@ import React from "react";
 import NFAStaked from './components/NFAStaked'
 import NFSCard from './components/NFACard';
 import Stake from './components/Stake';
-import {Grid, Paper, Container, Box} from '@material-ui/core'
+import {Grid, Paper, Container, Box, Button} from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
 import Logo from './assets/logo.png'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -33,18 +33,44 @@ function Dashboard() {
       margin: theme.spacing(2),
       fontSize: '18px',
       fontWeight: 'bold'
+    },
+    button: {
+      margin: theme.spacing(1),
+      padding: '8px 10px',
+      borderRadius: '12px',
+      fontSize: '14px',
+      fontWeight: 700,
+    },
+    topBtn: {
+      position: 'absolute',
+      top: '24px',
+      right: '84px',
+    },
+    topText: {
+      fontWeight: '700',
+      fontSize: '14px',
+      cursor: 'pointer',
+      display: 'inline-flex',
+      width: 'fit-content',
+      marginRight: '12px',
     }
   }));
 
   const classes = useStyles();
 
   return (
-    <Container justify="center">
+    <Container justify="center" style={{position: 'relative'}}>
       <Paper elevation={1}>
         <Box p={6}>
           <Grid className={classes.root}>
             <Grid className={classes.logo} container justify="center" alignItems="flex-start">
               <img src={Logo}  alt="logo"/>
+            </Grid>
+            <Grid className={classes.topBtn}>
+              <Typography className={classes.topText}>Home</Typography>
+              <Button variant="contained" color="primary" className={classes.button}>
+                Connect wallet
+              </Button>
             </Grid>
             <Grid container spacing={4}>
               <Grid item xs={3}>
