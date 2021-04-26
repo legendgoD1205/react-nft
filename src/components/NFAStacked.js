@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
-const Card = ({Icon}) => {
+const NFAStacked = ({Icon}) => {
   const useStyles = makeStyles({
     card: {
       borderRadius: '12px',
@@ -42,4 +42,4 @@ const Card = ({Icon}) => {
   )
 }
 
-export default Card
+export default NFAStacked
