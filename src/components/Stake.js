@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 const Stake = () => {
   const useStyles = makeStyles(theme => ({
     root: {
+      height: '264px',
       padding: theme.spacing(2),
       borderRadius: '12px',
       background: '#f1f1f1',

@@ -12,13 +12,13 @@ import BabySvg from './assets/baby.svg';
 import UsersSvg from './assets/family.svg';
 import Typography from "@material-ui/core/Typography";
 import theme from "./theme";
+import StakingReward from "./components/StakingRewards";
 
 function Dashboard() {
   const useStyles = makeStyles( theme => ({
     root: {
       padding: theme.spacing(4),
       maxWidth: '1280px',
-      height: '100vh',
     },
     logo: {
       marginTop: theme.spacing(2),
@@ -103,7 +103,7 @@ function Dashboard() {
                 <Grid item>
                   <Typography className={classes.title} variant="h4">MY NAFS</Typography>
                 </Grid>
-                <Stake />
+                <StakingReward />
               </Grid>
             </Grid>
           </Grid>
