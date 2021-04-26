@@ -13,7 +13,7 @@ const Stake = () => {
     root: {
       padding: theme.spacing(2),
       borderRadius: '12px',
-      background: '#ee6688',
+      background: '#f1f1f1',
       position: 'relative'
     },
     icon: {
@@ -36,6 +36,8 @@ const Stake = () => {
       margin: theme.spacing(1),
       padding: '12px 60px',
       borderRadius: '12px',
+      fontSize: '14px',
+      fontWeight: 700,
     }
   }));
 
@@ -49,15 +51,15 @@ const Stake = () => {
           <Grid className={classes.inputField} >&nbsp;</Grid>
         </Grid>
         <Grid container direction="row" alignItems="center">
-          <img className={classes.icon} src={FemaleSvg}  alt="avatar"/>
+          <img className={classes.icon} src={MaleSvg}  alt="avatar"/>
           <Grid className={classes.inputField} />
         </Grid>
         <Grid container direction="row" alignItems="center">
-          <img className={classes.icon} src={FemaleSvg}  alt="avatar"/>
+          <img className={classes.icon} src={BabySvg}  alt="avatar"/>
           <Grid className={classes.inputField} />
         </Grid>
         <Grid container direction="row" alignItems="center">
-          <img className={classes.icon} src={FemaleSvg}  alt="avatar"/>
+          <img className={classes.icon} src={UsersSvg}  alt="avatar"/>
           <Grid className={classes.inputField} />
         </Grid>
       </Grid>
