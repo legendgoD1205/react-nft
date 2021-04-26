@@ -10,6 +10,10 @@ const useStyes = makeStyles(theme => ({
       fontWeight: 'bold',
       paddingLeft: '8px',
     },
+    '& h5.MuiTypography-root': {
+      fontWeight: '100 !important',
+      fontSize: '16px',
+    },
   },
   icon: {
     margin: theme.spacing(1),
