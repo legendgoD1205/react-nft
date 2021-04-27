@@ -12,8 +12,11 @@ import Accounts from './assets/accounts.png';
 import Typography from "@material-ui/core/Typography";
 import theme from "./theme";
 import StakingReward from "./components/StakingRewards";
+import MyContext from './lib/context'
 
-function Dashboard() {
+function Dashboard({account, balance}) {
+  console.log(balance)
+  const connectWallet = React.useContext(MyContext)
   const useStyles = makeStyles( theme => ({
     root: {
       padding: theme.spacing(4),
@@ -64,10 +67,20 @@ function Dashboard() {
               <img src={Logo}  alt="logo"/>
             </Grid>
             <Grid className={classes.topBtn}>
-              <Typography className={classes.topText}>Home</Typography>
-              <Button variant="contained" color="primary" className={classes.button}>
-                Connect wallet
-              </Button>
+              <Grid container direction="column">
+                <Grid container direction="row" alignItems="center" justify="flex-end">
+                  <Typography className={classes.topText}>Home</Typography>
+                  <Button onClick={connectWallet} variant="contained" color="primary" className={classes.button}>
+                    Connect wallet
+                  </Button>
+                </Grid>
+                <Grid container direction="column" alignItems="flex-end" justify="flex-end">
+                  <Typography className={classes.topText}>{account}</Typography>
+                  {
+                    balance !== '' ? (<Typography className={classes.topText}>{balance + "ETH"}</Typography>): ""
+                  }
+                </Grid>
+              </Grid>
             </Grid>
             <Grid container spacing={4}>
               <Grid item xs={3}>
