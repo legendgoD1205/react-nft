@@ -11,9 +11,12 @@ const useStyes = makeStyles(theme => ({
       paddingLeft: '8px',
     },
     '& h5.MuiTypography-root': {
-      fontWeight: '100 !important',
       fontSize: '16px',
     },
+  },
+  title : {
+    fontSize: 24,
+    fontWeight: 200
   },
   icon: {
     margin: theme.spacing(1),
@@ -38,7 +41,7 @@ const NFAItem = ({imgSrc, neverGiven, oneChild, twoChild}) => {
           <Grid className={classes.icon} container justify="center" alignItems="center">
             <img src={imgSrc} width="60%" height="auto"  alt="avatar"/>
           </Grid>
-          <Typography style={{fontSize: 24, fontWeight: "bold"}} >FEMALES</Typography>
+          <Typography className={classes.title} >FEMALES</Typography>
         </Grid>
         <Grid className={classes.text} container direction="row" alignItems="center">
           <Typography variant="h5">Never Given birth: </Typography>
