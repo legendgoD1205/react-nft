@@ -1,9 +1,7 @@
 import palette from './palette';
 
 export default {
-  typography: {
-    fontFamily: ['"Poppins"'].join(',')
-  },
+  fontFamily: ['"Poppins"'].join(','),
   h1: {
     color: palette.text.primary,
     fontWeight: 500,
@@ -28,7 +26,7 @@ export default {
   h4: {
     color: palette.text.primary,
     fontWeight: 500,
-    fontSize: '20px',
+    fontSize: '24px',
     letterSpacing: '-0.06px',
     lineHeight: '24px'
   },
@@ -89,4 +87,4 @@ export default {
     lineHeight: '13px',
     textTransform: 'uppercase'
   }
-};
+}
