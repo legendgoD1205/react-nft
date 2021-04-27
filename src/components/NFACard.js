@@ -35,12 +35,16 @@ const NFAStacked = ({Icon}) => {
   }
 
   return (
-    <Grid className={classes.root} container direction="row" justify="space-between">
-      <FemalesItem imgSrc={Female} neverGiven={2} oneChild={1} twoChild={2} />
-      <NFAItem title={Title("MALES", 24)} imgSrc={Male} count={10}/>
-      <NFAItem title={Title("BABIES", 24)} imgSrc={Baby} count={10} />
-      <NFAItem title={Title("FAMILIES", 24)} imgSrc={Accounts} count={5} />
-      <NFAItem title={Title("GAY MARRIAGE CERTIFICATES", 16)} imgSrc={Flag} count={1} />
+    <Grid className={classes.root} container direction="row" justify="space-evenly">
+      <Grid item sm={12} md={3}>
+        <FemalesItem imgSrc={Female} neverGiven={2} oneChild={1} twoChild={2} />
+      </Grid>
+      <Grid item sm={12} md={9} container direction="row" justify="space-around">
+        <NFAItem title={Title("MALES", 24)} imgSrc={Male} count={10}/>
+        <NFAItem title={Title("BABIES", 24)} imgSrc={Baby} count={10} />
+        <NFAItem title={Title("FAMILIES", 24)} imgSrc={Accounts} count={5} />
+        <NFAItem title={Title("GAY MARRIAGE CERTIFICATES", 16)} imgSrc={Flag} count={1} />
+      </Grid>
     </Grid>
   )
 }

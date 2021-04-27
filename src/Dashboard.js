@@ -43,19 +43,19 @@ function Dashboard({account, balance}) {
       },
       marginBottom: theme.spacing(4),
     },
-    title: {
-      margin: theme.spacing(2),
+    firstTitle: {
+      margin: `36px 24px 18px 24px`,
       fontSize: '24px',
       fontWeight: '900'
     },
-    firstTitle: {
-      marginTop: '32px',
+    title: {
+      margin: theme.spacing(3),
+      fontSize: '24px',
+      fontWeight: '900'
     },
     button: {
       margin: theme.spacing(1),
       padding: '10px 24px',
-      borderRadius: '12px',
-      fontSize: '14px',
       fontWeight: 700,
       borderRadius: '14px',
       fontSize: '16px',
@@ -104,7 +104,7 @@ function Dashboard({account, balance}) {
               </Grid>
             </Grid>
             <Grid container spacing={4}>
-              <Grid className={classes.padding6} item xs={12} sm={6} md={3}>
+              <Grid item xs={12} sm={6} md={3}>
                 <NFAStaked bgColor={theme.palette.secondary.light} imgSrc={Female} count={150} text="NFA FEMALES STAKED" />
               </Grid>
               <Grid className={classes.padding6} item xs={12} sm={6} md={3}>
@@ -118,7 +118,7 @@ function Dashboard({account, balance}) {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography className={`${classes.title} ${classes.firstTitle}`} variant="h4">MY NAFS</Typography>
+              <Typography className={`${classes.firstTitle}`} variant="h4">MY NAFS</Typography>
             </Grid>
             <Grid item xs={12}>
               <NFSCard />
