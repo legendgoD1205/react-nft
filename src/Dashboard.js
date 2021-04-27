@@ -45,10 +45,12 @@ function Dashboard({account, balance}) {
       top: '24px',
       right: theme.spacing(12),
     },
+    Btn: {
+      cursor: 'pointer'
+    },
     topText: {
       fontWeight: '700',
       fontSize: '14px',
-      cursor: 'pointer',
       display: 'inline-flex',
       width: 'fit-content',
       marginRight: '12px',
@@ -68,7 +70,7 @@ function Dashboard({account, balance}) {
             <Grid className={classes.topBtn}>
               <Grid container direction="column">
                 <Grid container direction="row" alignItems="center" justify="flex-end">
-                  <Typography className={classes.topText}>Home</Typography>
+                  <Typography className={`${classes.topText} ${classes.Btn}`}>Home</Typography>
                   <Button onClick={connectWallet} variant="contained" color="primary" className={classes.button}>
                     Connect wallet
                   </Button>
