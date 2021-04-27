@@ -2,7 +2,7 @@ import palette from './palette';
 
 export default {
   typography: {
-    fontFamily: ['"Poppins"', 'Open Sans'].join(',')
+    fontFamily: ['"Poppins"'].join(',')
   },
   h1: {
     color: palette.text.primary,
