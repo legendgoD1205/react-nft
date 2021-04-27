@@ -49,7 +49,7 @@ export default {
     light: colors.red[400]
   },
   text: {
-    primary: colors.blueGrey[900],
+    primary: '#282828',
     secondary: colors.blueGrey[600],
     link: colors.blue[600]
   },

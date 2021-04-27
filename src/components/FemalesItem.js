@@ -11,7 +11,6 @@ const useStyes = makeStyles(theme => ({
       paddingLeft: '8px',
     },
     '& h5.MuiTypography-root': {
-      fontWeight: '100 !important',
       fontSize: '16px',
     },
   },

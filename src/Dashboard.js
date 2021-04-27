@@ -15,7 +15,6 @@ import StakingReward from "./components/StakingRewards";
 import MyContext from './lib/context'
 
 function Dashboard({account, balance}) {
-  console.log(balance)
   const connectWallet = React.useContext(MyContext)
   const useStyles = makeStyles( theme => ({
     root: {
