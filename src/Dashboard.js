@@ -85,16 +85,16 @@ function Dashboard({account, balance}) {
               </Grid>
             </Grid>
             <Grid container spacing={4}>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={6} md={3}>
                 <NFAStaked bgColor={theme.palette.secondary.light} imgSrc={Female} count={150} text="NFA FEMALES STAKED" />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={6} md={3}>
                 <NFAStaked bgColor={theme.palette.primary.main} imgSrc={Male} count={250} text="NFA MALES STAKED"  />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={6} md={3}>
                 <NFAStaked bgColor={theme.palette.primary.light} imgSrc={BabyCyan} count={50} text="NFA BABIES STAKED" />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={6} md={3}>
                 <NFAStaked bgColor={theme.palette.third.light} imgSrc={Accounts} count={25} text="NFA FAMILIES STAKED" />
               </Grid>
             </Grid>
@@ -105,15 +105,15 @@ function Dashboard({account, balance}) {
               <NFSCard />
             </Grid>
             <Grid container spacing={4}>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <Grid item>
                   <Typography className={classes.title} variant="h4">STAKE</Typography>
                 </Grid>
                 <Stake />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <Grid item>
-                  <Typography className={classes.title} variant="h4">MY NAFS</Typography>
+                  <Typography className={classes.title} variant="h4">STAKING REWARDS</Typography>
                 </Grid>
                 <StakingReward />
               </Grid>
