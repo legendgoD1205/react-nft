@@ -16,7 +16,7 @@ const useStyes = makeStyles(theme => ({
   },
   title : {
     fontSize: 24,
-    fontWeight: 700,
+    fontWeight: 800,
   },
   icon: {
     margin: theme.spacing(1),
@@ -28,7 +28,7 @@ const useStyes = makeStyles(theme => ({
   },
   text: {
     marginLeft: theme.spacing(1),
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
 }));
 

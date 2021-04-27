@@ -1,14 +1,10 @@
 import React from "react";
 import {makeStyles} from "@material-ui/styles";
-import theme from "../theme";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
 const useStyes = makeStyles(theme => ({
   root: {
-    '& .MuiTypography-root': {
-      fontWeight: '900',
-    },
   },
   icon: {
     margin: theme.spacing(1),
@@ -24,7 +20,8 @@ const useStyes = makeStyles(theme => ({
     backgroundColor: 'white',
     width: '58px',
     height: '46px',
-    borderRadius: '10px'
+    borderRadius: '10px',
+    fontWeight: 700
   }
 }));
 

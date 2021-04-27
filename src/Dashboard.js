@@ -103,7 +103,7 @@ function Dashboard({account, balance}) {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container spacing={4}>
+            <Grid container spacing={2}>
               <Grid item xs={12} sm={6} md={3}>
                 <NFAStaked bgColor={theme.palette.secondary.light} imgSrc={Female} count={150} text="NFA FEMALES STAKED" />
               </Grid>

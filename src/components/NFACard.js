@@ -14,7 +14,7 @@ const NFAStacked = ({Icon}) => {
   const useStyles = makeStyles( theme => ({
     root: {
       borderRadius: '12px',
-      padding: theme.spacing(1),
+      padding: theme.spacing(2),
       background: '#f1f1f1',
       '& h2.MuiTypography-root': {
         fontSize: '36px',
@@ -22,7 +22,8 @@ const NFAStacked = ({Icon}) => {
     },
     title: {
       textTransform: 'uppercase',
-      maxWidth: '150px'
+      maxWidth: '150px',
+      fontWeight: 900,
     },
   }));
 
