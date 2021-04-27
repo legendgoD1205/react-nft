@@ -2,6 +2,7 @@ import palette from './palette';
 
 export default {
   fontFamily: ['"Poppins"'].join(','),
+  fontSize: '46px',
   h1: {
     color: palette.text.primary,
     fontWeight: 500,
@@ -12,16 +13,16 @@ export default {
   h2: {
     color: palette.text.primary,
     fontWeight: 500,
-    fontSize: '29px',
+    fontSize: '48px !important',
     letterSpacing: '-0.24px',
-    lineHeight: '32px'
+    lineHeight: '52px'
   },
   h3: {
     color: palette.text.primary,
     fontWeight: 500,
-    fontSize: '24px',
+    fontSize: '30px',
     letterSpacing: '-0.06px',
-    lineHeight: '28px'
+    lineHeight: '32px'
   },
   h4: {
     color: palette.text.primary,
@@ -59,7 +60,7 @@ export default {
   },
   body1: {
     color: palette.text.primary,
-    fontSize: '14px',
+    fontSize: '17px',
     letterSpacing: '-0.05px',
     lineHeight: '21px'
   },
@@ -71,7 +72,7 @@ export default {
   },
   button: {
     color: palette.text.primary,
-    fontSize: '14px'
+    fontSize: '18px',
   },
   caption: {
     color: palette.text.secondary,

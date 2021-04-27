@@ -11,16 +11,16 @@ import Button from "@material-ui/core/Button";
 const Stake = () => {
   const useStyles = makeStyles(theme => ({
     root: {
-      height: '219px',
-      padding: theme.spacing(2),
+      height: '294px',
       borderRadius: '12px',
       background: '#f1f1f1',
-      position: 'relative'
+      position: 'relative',
+      padding: '24px 18px',
     },
     icon: {
       margin: theme.spacing(1),
-      width: '32px',
-      height: '32px',
+      width: '48px',
+      height: '48px',
       padding: '4px',
       borderRadius: '10px',
       backgroundColor: 'white',
@@ -31,15 +31,16 @@ const Stake = () => {
       marginLeft: '16px',
       marginRight: '48px',
       height: theme.spacing(4),
-      borderRadius: '12px',
+      borderRadius: '14px',
+      height: '42px'
     },
     button: {
       margin: theme.spacing(1),
       width: '100%',
-      height: '40px',
-      borderRadius: '12px',
-      fontSize: '14px',
-      fontWeight: 700,
+      height: '48px',
+      borderRadius: '14px',
+      fontSize: '18px',
+      fontWeight: 600,
     }
   }));
 
@@ -47,7 +48,7 @@ const Stake = () => {
 
   return (
     <Grid container className = {classes.root}>
-      <Grid item xs={8} container direction="column" justify="flex-start" alignItems="flex-start" spacing={1}>
+      <Grid item xs={8} container direction="column" justify="space-between" alignItems="flex-start" spacing={1}>
         <Grid container direction="row" alignItems="center">
           <Grid className={classes.icon} container justify="center" alignItems="center">
             <img width="60%" height="auto" src={Female} alt="avatar"/>

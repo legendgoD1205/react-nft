@@ -8,7 +8,7 @@ const NFAStaked = ({imgSrc, count, text, bgColor}) => {
   const useStyles = makeStyles({
     card: {
       borderRadius: '12px',
-      height: '150px',
+      height: '190px',
       background: `${bgColor}`,
       backgroundImage: `url(${Flash})`,
       position: 'relative',

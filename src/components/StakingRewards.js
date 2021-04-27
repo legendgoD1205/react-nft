@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 const StakingReward = ({Icon}) => {
   const useStyles = makeStyles(theme => ({
     root: {
-      height: '219px',
+      height: '294px',
       padding: theme.spacing(2),
       borderRadius: '12px',
       background: '#f1f1f1',
@@ -45,36 +45,39 @@ const StakingReward = ({Icon}) => {
       padding: '8px 10px',
       borderColor: '#df9f45',
       borderRadius: '12px',
-      fontSize: '14px',
+      fontSize: '18px',
       fontWeight: 700,
     },
     ether: {
       marginBottom: '2px',
-      fontSize: '26px',
+      fontSize: '36px',
       letterSpacing: '1px',
-      fontWeight: 700
+      fontWeight: 700,
+      lineHeight: '36px',
     },
     dueDate : {
       letterSpacing: '1px',
-      fontWeight: 700
+      fontWeight: 700,
+      fontSize: '18px',
     },
     days: {
       marginTop: '4px',
-      fontSize: '16px',
+      fontSize: '18px',
       fontWeight: 700
     },
     rewards: {
-      letterSpacing: '2px',
-      fontSize: '16px',
-      fontWeight: 700
+      letterSpacing: '1px',
+      fontSize: '24px',
+      fontWeight: 500,
+      lineHeight: '24px'
     },
     button: {
       margin: theme.spacing(1),
       width: '35%',
-      height: '40px',
-      borderRadius: '12px',
-      fontSize: '14px',
-      fontWeight: 700,
+      height: '48px',
+      borderRadius: '14px',
+      fontSize: '18px',
+      fontWeight: 600,
     }
   }));
 
@@ -88,7 +91,7 @@ const StakingReward = ({Icon}) => {
         </Grid>
         <Grid className={classes.tDate} container justify="center" direction="column">
           <Typography className={classes.dueDate}>Due Date</Typography>
-          <Typography className={classes.days}>0 DAYS</Typography>
+          <Typography className={classes.days}>0 <small>DAYS</small></Typography>
         </Grid>
         <Typography className={classes.status}>DELIVERED</Typography>
         <Button variant="contained" color="primary" className={classes.button}>

@@ -23,6 +23,9 @@ function Dashboard({account, balance}) {
       width: '100%',
       padding: '0',
     },
+    padding6: {
+      padding: '6px',
+    },
     box: {
       padding: '50px 90px',
     },
@@ -45,13 +48,16 @@ function Dashboard({account, balance}) {
       fontSize: '24px',
       fontWeight: '900'
     },
+    firstTitle: {
+      marginTop: '32px',
+    },
     button: {
       margin: theme.spacing(1),
       padding: '10px 24px',
       borderRadius: '12px',
       fontSize: '14px',
       fontWeight: 700,
-      borderRadius: '18px',
+      borderRadius: '14px',
       fontSize: '16px',
     },
     topBtn: {
@@ -98,21 +104,21 @@ function Dashboard({account, balance}) {
               </Grid>
             </Grid>
             <Grid container spacing={4}>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid className={classes.padding6} item xs={12} sm={6} md={3}>
                 <NFAStaked bgColor={theme.palette.secondary.light} imgSrc={Female} count={150} text="NFA FEMALES STAKED" />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid className={classes.padding6} item xs={12} sm={6} md={3}>
                 <NFAStaked bgColor={theme.palette.primary.main} imgSrc={Male} count={250} text="NFA MALES STAKED"  />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid className={classes.padding6} item xs={12} sm={6} md={3}>
                 <NFAStaked bgColor={theme.palette.primary.light} imgSrc={BabyCyan} count={50} text="NFA BABIES STAKED" />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid className={classes.padding6} item xs={12} sm={6} md={3}>
                 <NFAStaked bgColor={theme.palette.third.light} imgSrc={Accounts} count={25} text="NFA FAMILIES STAKED" />
               </Grid>
             </Grid>
             <Grid item>
-              <Typography className={classes.title} variant="h4">MY NAFS</Typography>
+              <Typography className={`${classes.title} ${classes.firstTitle}`} variant="h4">MY NAFS</Typography>
             </Grid>
             <Grid item xs={12}>
               <NFSCard />

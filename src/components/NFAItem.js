@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyes = makeStyles(theme => ({
   root: {
     '& .MuiTypography-root': {
-      fontWeight: 'bold',
+      fontWeight: '900',
     },
   },
   icon: {
@@ -22,8 +22,8 @@ const useStyes = makeStyles(theme => ({
     margin: theme.spacing(1),
     padding: '20px',
     backgroundColor: 'white',
-    width: '36px',
-    height: '28px',
+    width: '58px',
+    height: '46px',
     borderRadius: '10px'
   }
 }));
