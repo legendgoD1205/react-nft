@@ -42,7 +42,7 @@ const StakingReward = ({Icon}) => {
     },
     status: {
       border: 'solid 1px',
-      padding: '10px 10px',
+      padding: '8px 10px',
       borderColor: '#df9f45',
       borderRadius: '12px',
       fontSize: '14px',
@@ -50,10 +50,16 @@ const StakingReward = ({Icon}) => {
     },
     ether: {
       marginBottom: '2px',
-      fontSize: '24px',
+      fontSize: '26px',
+      letterSpacing: '1px',
+      fontWeight: 700
+    },
+    dueDate : {
+      letterSpacing: '1px',
       fontWeight: 700
     },
     days: {
+      marginTop: '4px',
       fontSize: '16px',
       fontWeight: 700
     },
@@ -81,7 +87,7 @@ const StakingReward = ({Icon}) => {
           <img src={Baby} alt="avatar"/>
         </Grid>
         <Grid className={classes.tDate} container justify="center" direction="column">
-          <Typography>Due Date</Typography>
+          <Typography className={classes.dueDate}>Due Date</Typography>
           <Typography className={classes.days}>0 DAYS</Typography>
         </Grid>
         <Typography className={classes.status}>DELIVERED</Typography>
