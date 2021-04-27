@@ -5,11 +5,10 @@ import Stake from './components/Stake';
 import {Grid, Paper, Container, Box, Button} from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
 import Logo from './assets/logo.png'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import MaleSvg from './assets/male.svg';
-import FemaleSvg from './assets/female.svg';
-import BabySvg from './assets/baby.svg';
-import UsersSvg from './assets/family.svg';
+import Male from './assets/male-gender.png';
+import Female from './assets/female-sign.png';
+import BabyCyan from './assets/toddler.png';
+import Accounts from './assets/accounts.png';
 import Typography from "@material-ui/core/Typography";
 import theme from "./theme";
 import StakingReward from "./components/StakingRewards";
@@ -18,16 +17,14 @@ function Dashboard() {
   const useStyles = makeStyles( theme => ({
     root: {
       padding: theme.spacing(4),
+      paddingTop: '0px',
       maxWidth: '1280px',
     },
     logo: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(8),
-      height: '100px',
       '& >img': {
         width: '400px',
-        height: '130px'
       },
+      marginBottom: theme.spacing(4),
     },
     title: {
       margin: theme.spacing(2),
@@ -44,7 +41,7 @@ function Dashboard() {
     topBtn: {
       position: 'absolute',
       top: '24px',
-      right: '84px',
+      right: theme.spacing(12),
     },
     topText: {
       fontWeight: '700',
@@ -74,23 +71,23 @@ function Dashboard() {
             </Grid>
             <Grid container spacing={4}>
               <Grid item xs={3}>
-                <NFAStaked bgColor={theme.palette.secondary.light} imgSrc={FemaleSvg} count={150} text="NFA FEMALES STAKED" />
+                <NFAStaked bgColor={theme.palette.secondary.light} imgSrc={Female} count={150} text="NFA FEMALES STAKED" />
               </Grid>
               <Grid item xs={3}>
-                <NFAStaked bgColor={theme.palette.primary.main} imgSrc={MaleSvg} count={250} text="NFA MALES STAKED"  />
+                <NFAStaked bgColor={theme.palette.primary.main} imgSrc={Male} count={250} text="NFA MALES STAKED"  />
               </Grid>
               <Grid item xs={3}>
-                <NFAStaked bgColor={theme.palette.primary.light} imgSrc={BabySvg} count={50} text="NFA BABIES STAKED" />
+                <NFAStaked bgColor={theme.palette.primary.light} imgSrc={BabyCyan} count={50} text="NFA BABIES STAKED" />
               </Grid>
               <Grid item xs={3}>
-                <NFAStaked bgColor={theme.palette.third.light} imgSrc={UsersSvg} count={25} text="NFA FAMILIES STAKED" />
+                <NFAStaked bgColor={theme.palette.third.light} imgSrc={Accounts} count={25} text="NFA FAMILIES STAKED" />
               </Grid>
             </Grid>
             <Grid item>
               <Typography className={classes.title} variant="h4">MY NAFS</Typography>
             </Grid>
             <Grid item xs={12}>
-              <NFSCard Icon={AddCircleOutlineIcon} />
+              <NFSCard />
             </Grid>
             <Grid container spacing={4}>
               <Grid item xs={6}>

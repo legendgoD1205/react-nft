@@ -1,14 +1,14 @@
 import React from 'react'
 import {Grid} from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
-import BabySvg from '../assets/baby.svg';
+import Baby from '../assets/baby.png';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 const StakingReward = ({Icon}) => {
   const useStyles = makeStyles(theme => ({
     root: {
-      height: '264px',
+      height: '219px',
       padding: theme.spacing(2),
       borderRadius: '12px',
       background: '#f1f1f1',
@@ -16,9 +16,8 @@ const StakingReward = ({Icon}) => {
     },
     icon: {
       margin: theme.spacing(1),
-      width: '20px',
-      height: '20px',
-      padding: '12px',
+      width: '48px',
+      height: '48px',
       borderRadius: '12px',
       backgroundColor: 'white',
     },
@@ -55,13 +54,18 @@ const StakingReward = ({Icon}) => {
       fontWeight: 700
     },
     days: {
+      fontSize: '16px',
+      fontWeight: 700
+    },
+    rewards: {
       letterSpacing: '2px',
       fontSize: '16px',
       fontWeight: 700
     },
     button: {
       margin: theme.spacing(1),
-      padding: '12px 60px',
+      width: '35%',
+      height: '40px',
       borderRadius: '12px',
       fontSize: '14px',
       fontWeight: 700,
@@ -73,7 +77,9 @@ const StakingReward = ({Icon}) => {
   return (
     <Grid className = {classes.root} container direction="column" justify="space-evenly">
       <Grid container className={classes.date} alignItems="center" justify="space-between">
-        <img className={classes.icon} src={BabySvg}  alt="avatar"/>
+        <Grid className={classes.icon} container justify="center" alignItems="center">
+          <img src={Baby} alt="avatar"/>
+        </Grid>
         <Grid className={classes.tDate} container justify="center" direction="column">
           <Typography>Due Date</Typography>
           <Typography className={classes.days}>0 DAYS</Typography>
@@ -87,7 +93,7 @@ const StakingReward = ({Icon}) => {
       <Grid container className={classes.content} justify="space-between" alignItems="center">
         <Grid className={classes.tEther} container justify="center" direction="column">
           <Typography className={classes.ether}>0.57ETH</Typography>
-          <Typography className={classes.days}>STAKING REWARDS</Typography>
+          <Typography className={classes.rewards}>STAKING REWARDS</Typography>
         </Grid>
         <Button variant="contained" color="primary" className={classes.button}>
           CLAIM

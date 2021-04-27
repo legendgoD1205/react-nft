@@ -3,11 +3,11 @@ import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import NFAItem from "./NFAItem";
 import FemalesItem from "./FemalesItem";
-import MaleSvg from '../assets/male.svg';
-import FemaleSvg from '../assets/female.svg';
-import BabySvg from '../assets/baby.svg';
-import MonkeySvg from '../assets/monkey.png';
-import FlagSvg from '../assets/flag.png';
+import Male from '../assets/male-gender.png';
+import Female from '../assets/female-sign.png';
+import Baby from '../assets/baby.png';
+import Accounts from '../assets/accounts_cyan.png';
+import Flag from '../assets/flag.png';
 import Typography from "@material-ui/core/Typography";
 
 const NFAStacked = ({Icon}) => {
@@ -36,11 +36,11 @@ const NFAStacked = ({Icon}) => {
 
   return (
     <Grid className={classes.root} container direction="row" justify="space-between">
-      <FemalesItem imgSrc={FemaleSvg} neverGiven={2} oneChild={1} twoChild={2} />
-      <NFAItem title={Title("MALES", 24)} imgSrc={MaleSvg} count={10}/>
-      <NFAItem title={Title("BABIES", 24)} imgSrc={BabySvg} count={10} />
-      <NFAItem title={Title("FAMILIES", 24)} imgSrc={MonkeySvg} count={5} />
-      <NFAItem title={Title("GAY MARRIAGE CERTIFICATES", 16)} imgSrc={FlagSvg} count={1} />
+      <FemalesItem imgSrc={Female} neverGiven={2} oneChild={1} twoChild={2} />
+      <NFAItem title={Title("MALES", 24)} imgSrc={Male} count={10}/>
+      <NFAItem title={Title("BABIES", 24)} imgSrc={Baby} count={10} />
+      <NFAItem title={Title("FAMILIES", 24)} imgSrc={Accounts} count={5} />
+      <NFAItem title={Title("GAY MARRIAGE CERTIFICATES", 16)} imgSrc={Flag} count={1} />
     </Grid>
   )
 }

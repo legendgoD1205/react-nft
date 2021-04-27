@@ -12,10 +12,10 @@ const useStyes = makeStyles(theme => ({
   },
   icon: {
     margin: theme.spacing(1),
-    width: '16px',
-    height: '16px',
-    padding: '4px',
-    borderRadius: '18px',
+    width: '28px',
+    height: '28px',
+    padding: '2px',
+    borderRadius: '12px',
     backgroundColor: 'white',
   },
   count: {
@@ -34,7 +34,9 @@ const NFAItem = ({title, imgSrc, count}) => {
     <Grid className={classes.root}>
       <Grid container direction="column" alignItems="center">
         <Grid container direction="row" alignItems="center">
-          <img className={classes.icon} src={imgSrc}  alt="avatar"/>
+          <Grid className={classes.icon} container justify="center" alignItems="center">
+            <img src={imgSrc} width="60%" height="auto"  alt="avatar"/>
+          </Grid>
           {title}
         </Grid>
         <Typography className={classes.count} variant="h2" align="center">{count}</Typography>
