@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
+import {Grid, useTheme} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import NFAItem from "./NFAItem";
 import FemalesItem from "./FemalesItem";
@@ -9,9 +9,24 @@ import Baby from '../assets/baby.png';
 import Accounts from '../assets/accounts_cyan.png';
 import Flag from '../assets/flag.png';
 import Typography from "@material-ui/core/Typography";
+import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery";
 
-const NFAStacked = ({Icon}) => {
+const NFAStacked = () => {
+  const responsiveTheme = useTheme();
+  const isTablet = useMediaQuery(responsiveTheme.breakpoints.down('sm'), {
+    defaultMatches: true
+  });
   const useStyles = makeStyles( theme => ({
+    wrapper: {
+      '@media(max-width: 1140px)': {
+        maxWidth: '50%',
+        flexBasis: '50%',
+      },
+      '@media(max-width: 599px)': {
+        maxWidth: '100%',
+        flexBasis: '100%',
+      }
+    },
     root: {
       borderRadius: '12px',
       padding: theme.spacing(2),
@@ -23,6 +38,7 @@ const NFAStacked = ({Icon}) => {
     title: {
       textTransform: 'uppercase',
       maxWidth: '150px',
+      minWidth: '130px',
       fontWeight: 900,
     },
   }));
@@ -37,14 +53,22 @@ const NFAStacked = ({Icon}) => {
 
   return (
     <Grid className={classes.root} container direction="row" justify="space-evenly">
-      <Grid item sm={12} md={3}>
+      <Grid item xs={12} md={3} container justify={isTablet ? 'center' : 'flex-start'} alignItems="center">
         <FemalesItem imgSrc={Female} neverGiven={2} oneChild={1} twoChild={2} />
       </Grid>
-      <Grid item sm={12} md={9} container direction="row" justify="space-around">
-        <NFAItem title={Title("MALES", 24)} imgSrc={Male} count={10}/>
-        <NFAItem title={Title("BABIES", 24)} imgSrc={Baby} count={10} />
-        <NFAItem title={Title("FAMILIES", 24)} imgSrc={Accounts} count={5} />
-        <NFAItem title={Title("GAY MARRIAGE CERTIFICATES", 16)} imgSrc={Flag} count={1} />
+      <Grid item xs={12} md={9} container direction="row">
+        <Grid className={classes.wrapper} item xs={12} sm={6} md>
+          <NFAItem title={Title("MALES", 24)} imgSrc={Male} count={10}/>
+        </Grid>
+        <Grid className={classes.wrapper} item xs={12} sm={6} md>
+          <NFAItem title={Title("BABIES", 24)} imgSrc={Baby} count={10} />
+        </Grid>
+        <Grid className={classes.wrapper} item xs={12} sm={6} md>
+          <NFAItem title={Title("FAMILIES", 24)} imgSrc={Accounts} count={5} />
+        </Grid>
+        <Grid className={classes.wrapper} item xs={12} sm={6} md>
+          <NFAItem title={Title("GAY MARRIAGE CERTIFICATES", 16)} imgSrc={Flag} count={1} />
+        </Grid>
       </Grid>
     </Grid>
   )

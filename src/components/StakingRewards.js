@@ -94,6 +94,8 @@ const StakingReward = ({isMobile}) => {
       whiteSpace: 'nowrap',
       '@media(max-width: 1080px)': {
         fontSize: '18px',
+        whiteSpace: 'normal',
+        textAlign: 'center',
         letterSpacing: '0px',
         lineHeight: '18px',
       },

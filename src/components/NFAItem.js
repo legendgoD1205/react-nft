@@ -8,6 +8,7 @@ const useStyes = makeStyles(theme => ({
   },
   icon: {
     margin: theme.spacing(1),
+    minWidth: '28px',
     width: '28px',
     height: '28px',
     padding: '2px',
@@ -30,7 +31,7 @@ const NFAItem = ({title, imgSrc, count}) => {
   return(
     <Grid className={classes.root}>
       <Grid container direction="column" alignItems="center">
-        <Grid container direction="row" alignItems="center">
+        <Grid container direction="row" alignItems="center" justify="center" wrap="nowrap">
           <Grid className={classes.icon} container justify="center" alignItems="center">
             <img src={imgSrc} width="60%" height="auto"  alt="avatar"/>
           </Grid>

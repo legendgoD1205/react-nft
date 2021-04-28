@@ -47,7 +47,7 @@ const NFAStaked = ({imgSrc, count, text, bgColor}) => {
         <Typography className={classes.count} variant="h3" align="right">
           {count}
         </Typography>
-        <Typography className={classes.title} variant="body1">
+        <Typography className={classes.title} variant="body1" align="right">
           {text}
         </Typography>
       </Grid>

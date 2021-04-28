@@ -32,7 +32,9 @@ const useStyes = makeStyles(theme => ({
   },
 }));
 
-const NFAItem = ({imgSrc, neverGiven, oneChild, twoChild}) => {
+const NFAItem = ({imgSrc, neverGiven, oneChild, twoChild, isTablet}) => {
+
+
   const classes = useStyes();
   return(
     <Grid className={classes.root}>
