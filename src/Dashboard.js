@@ -19,7 +19,7 @@ import MyContext from './lib/context'
 function Dashboard({account, balance}) {
   const connectWallet = React.useContext(MyContext);
   const responsiveTheme = useTheme();
-  const isMobile = useMediaQuery(responsiveTheme.breakpoints.down('xs'), {
+  const isMobile = useMediaQuery(responsiveTheme.breakpoints.down('sm'), {
     defaultMatches: true
   });
   const useStyles = makeStyles( theme => ({
