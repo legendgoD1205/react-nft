@@ -120,7 +120,7 @@ function Dashboard({account, balance}) {
                 <Grid item>
                   <Typography className={classes.title} variant="h4">STAKING REWARDS</Typography>
                 </Grid>
-                <StakingReward />
+                <StakingReward isMobile={isMobile} />
               </Grid>
             </Grid>
           </Grid>

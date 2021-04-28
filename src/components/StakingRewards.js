@@ -5,7 +5,7 @@ import Baby from '../assets/baby.png';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
-const StakingReward = ({Icon}) => {
+const StakingReward = ({isMobile}) => {
   const useStyles = makeStyles(theme => ({
     root: {
       height: '294px',
@@ -73,8 +73,6 @@ const StakingReward = ({Icon}) => {
     },
     button: {
       margin: theme.spacing(1),
-      width: '35%',
-      height: '48px',
       borderRadius: '14px',
       fontSize: '18px',
       fontWeight: 600,
@@ -85,28 +83,40 @@ const StakingReward = ({Icon}) => {
 
   return (
     <Grid className = {classes.root} container direction="column" justify="space-evenly">
-      <Grid container className={classes.date} alignItems="center" justify="space-between">
-        <Grid className={classes.icon} container justify="center" alignItems="center">
-          <img src={Baby} alt="avatar"/>
+      <Grid container direction="row" alignItems="center" justify="space-between">
+        <Grid item xs={6} md container justify="center" alignItems="center">
+          <Grid className={classes.icon} container justify="center" alignItems="center">
+            <img src={Baby} alt="avatar"/>
+          </Grid>
         </Grid>
-        <Grid className={classes.tDate} container justify="center" direction="column">
-          <Typography className={classes.dueDate}>Due Date</Typography>
-          <Typography className={classes.days}>0 <small>DAYS</small></Typography>
+        <Grid item xs={6} md container justify="center" alignItems="center">
+          <Grid className={classes.tDate} container justify="center" direction="column">
+            <Typography className={classes.dueDate}>Due Date</Typography>
+            <Typography className={classes.days}>0 <small>DAYS</small></Typography>
+          </Grid>
         </Grid>
-        <Typography className={classes.status}>DELIVERED</Typography>
-        <Button variant="contained" color="primary" className={classes.button}>
-          CLAIM
-        </Button>
+        <Grid item xs={6} md container justify="center" alignItems="center">
+          <Typography className={classes.status}>DELIVERED</Typography>
+        </Grid>
+        <Grid item xs={6} md container justify="center" alignItems="center">
+          <Button variant="contained" color="primary" className={classes.button}>
+            CLAIM
+          </Button>
+        </Grid>
       </Grid>
       <Grid className={classes.line} />
       <Grid container className={classes.content} justify="space-between" alignItems="center">
-        <Grid className={classes.tEther} container justify="center" direction="column">
-          <Typography className={classes.ether}>0.57ETH</Typography>
-          <Typography className={classes.rewards}>STAKING REWARDS</Typography>
+        <Grid container item xs={12} md>
+          <Grid className={classes.tEther} container justify="center" direction="column">
+            <Typography className={classes.ether}>0.57ETH</Typography>
+            <Typography className={classes.rewards}>STAKING REWARDS</Typography>
+          </Grid>
         </Grid>
-        <Button variant="contained" color="primary" className={classes.button}>
-          CLAIM
-        </Button>
+        <Grid container item xs={12} md>
+          <Button variant="contained" color="primary" className={classes.button}>
+            CLAIM
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
   )
