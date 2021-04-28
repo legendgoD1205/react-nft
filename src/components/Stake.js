@@ -11,11 +11,10 @@ import Button from "@material-ui/core/Button";
 const Stake = () => {
   const useStyles = makeStyles(theme => ({
     root: {
-      height: '294px',
       borderRadius: '12px',
       background: '#f1f1f1',
       position: 'relative',
-      padding: '24px 18px',
+      padding: theme.spacing(3),
     },
     icon: {
       margin: theme.spacing(1),
@@ -28,16 +27,13 @@ const Stake = () => {
     inputField: {
       flexGrow: 1,
       backgroundColor: 'white',
-      marginLeft: '16px',
-      marginRight: '48px',
-      height: theme.spacing(4),
+      margin: '0px 16px',
       borderRadius: '14px',
       height: '42px'
     },
     button: {
-      margin: theme.spacing(1),
+      margin: '16px 16px 8px 8px',
       width: '100%',
-      height: '48px',
       borderRadius: '14px',
       fontSize: '18px',
       fontWeight: 600,
@@ -48,7 +44,7 @@ const Stake = () => {
 
   return (
     <Grid container className = {classes.root}>
-      <Grid item xs={8} container direction="column" justify="space-between" alignItems="flex-start" spacing={1}>
+      <Grid item xs={12} md={8}  container direction="column" justify="space-between" alignItems="flex-start" spacing={1}>
         <Grid container direction="row" alignItems="center">
           <Grid className={classes.icon} container justify="center" alignItems="center">
             <img width="60%" height="auto" src={Female} alt="avatar"/>
@@ -74,7 +70,7 @@ const Stake = () => {
           <Grid className={classes.inputField} />
         </Grid>
       </Grid>
-      <Grid item xs={4} container alignItems="flex-end" justify="center">
+      <Grid item xs={12} md={4} container alignItems="flex-end" justify="center">
         <Button variant="contained" color="primary" className={classes.button}>
           STAKE
         </Button>
