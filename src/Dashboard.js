@@ -11,37 +11,28 @@ import BabyCyan from './assets/toddler.png';
 import Accounts from './assets/accounts.png';
 import Typography from "@material-ui/core/Typography";
 import theme from "./theme";
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import StakingReward from "./components/StakingRewards";
 import MyContext from './lib/context'
 
 function Dashboard({account, balance}) {
-  const connectWallet = React.useContext(MyContext)
+  const connectWallet = React.useContext(MyContext);
+  const responsiveTheme = useTheme();
+  const isMobile = useMediaQuery(responsiveTheme.breakpoints.down('xs'), {
+    defaultMatches: true
+  });
   const useStyles = makeStyles( theme => ({
-    wrapper: {
-      position: 'relative',
-      maxWidth: '1440px',
-      width: '100%',
-      padding: '0',
-    },
-    padding6: {
-      padding: '6px',
-    },
-    box: {
-      padding: '50px 90px',
-    },
-    noMargin: {
-      margin: '0px',
-      padding: '0px',
-    },
     root: {
-      paddingTop: '0px',
+      padding: `${isMobile ? '16px' : '64px'}`,
       maxWidth: '1440px',
     },
     logo: {
       '& >img': {
-        width: '400px',
+        width: '50%',
       },
-      marginBottom: theme.spacing(4),
+      marginTop: `${isMobile ? '16px' : '-16px'}`,
+      marginBottom: theme.spacing(2),
     },
     firstTitle: {
       margin: `36px 24px 18px 24px`,
@@ -54,19 +45,15 @@ function Dashboard({account, balance}) {
       fontWeight: '900'
     },
     button: {
-      margin: theme.spacing(1),
-      padding: '10px 24px',
       fontWeight: 700,
       borderRadius: '14px',
       fontSize: '16px',
     },
-    topBtn: {
-      position: 'absolute',
-      top: '24px',
-      right: '80px',
-    },
     Btn: {
       cursor: 'pointer'
+    },
+    padding6: {
+      padding: '6px',
     },
     topText: {
       fontWeight: '700',
@@ -80,16 +67,12 @@ function Dashboard({account, balance}) {
   const classes = useStyles();
 
   return (
-    <Container justify="center" className={classes.wrapper}>
+    <Container maxWidth="lg">
       <Paper elevation={1}>
-        <Box className={classes.box}>
-          <Grid className={classes.root}>
-            <Grid className={classes.logo} container justify="center" alignItems="flex-start">
-              <img src={Logo}  alt="logo"/>
-            </Grid>
-            <Grid className={classes.topBtn}>
+          <Grid container className={classes.root}>
+            <Grid container justify="flex-end">
               <Grid container direction="column">
-                <Grid container className={classes.noMargin} direction="row" alignItems="center" justify="flex-end">
+                <Grid container direction="row" alignItems="center" justify={isMobile ? "space-between" : "flex-end"}>
                   <Typography className={`${classes.topText} ${classes.Btn}`}>Home</Typography>
                   <Button onClick={connectWallet} variant="contained" color="primary" className={classes.button}>
                     Connect wallet
@@ -102,6 +85,9 @@ function Dashboard({account, balance}) {
                   }
                 </Grid>
               </Grid>
+            </Grid>
+            <Grid className={classes.logo} container justify="center" alignItems="flex-start">
+              <img src={Logo}  alt="logo"/>
             </Grid>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6} md={3}>
@@ -138,7 +124,6 @@ function Dashboard({account, balance}) {
               </Grid>
             </Grid>
           </Grid>
-        </Box>
       </Paper>
     </Container>
   );

@@ -15,7 +15,7 @@ const useStyes = makeStyles(theme => ({
     },
   },
   title : {
-    fontSize: 24,
+    fontSize: '24px',
     fontWeight: 800,
   },
   icon: {
