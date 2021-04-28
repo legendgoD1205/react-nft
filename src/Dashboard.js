@@ -61,7 +61,20 @@ function Dashboard({account, balance}) {
       display: 'inline-flex',
       width: 'fit-content',
       marginRight: '12px',
-    }
+    },
+    accountName: {
+      fontWeight: '700',
+      fontSize: '14px',
+      width: 'fit-content',
+      maxWidth: '220px',
+      marginRight: '12px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      '@media(max-width: 600px)': {
+        maxWidth: '165px',
+        marginRight: '0px',
+      },
+    },
   }));
 
   const classes = useStyles();
@@ -79,7 +92,7 @@ function Dashboard({account, balance}) {
                   </Button>
                 </Grid>
                 <Grid container direction="column" alignItems="flex-end" justify="flex-end">
-                  <Typography className={classes.topText}>{account}</Typography>
+                    <Typography className={classes.accountName}>{account}</Typography>
                   {
                     balance !== '' ? (<Typography className={classes.topText}>{balance + "ETH"}</Typography>): ""
                   }

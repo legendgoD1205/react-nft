@@ -27,7 +27,15 @@ const StakingReward = ({isMobile}) => {
     tEther: {
       marginLeft: theme.spacing(3),
       marginRight: theme.spacing(3),
-      width: 'fit-content',
+      '@media(max-width: 960px)': {
+        alignItems: 'center',
+      },
+    },
+    bEther: {
+      justifyContent: 'flex-end',
+      '@media(max-width: 960px)': {
+        justifyContent: 'center',
+      },
     },
     date: {
       flexFlow: 'row',
@@ -38,7 +46,15 @@ const StakingReward = ({isMobile}) => {
       width: '100%',
     },
     content: {
-      flexFlow: 'row'
+      flexFlow: 'row',
+      padding: '0px 12px',
+      justifyContent: 'space-between',
+      '@media(max-width: 1080px)': {
+        padding: '0px'
+      },
+      '@media(max-width: 960px)': {
+        justifyContent: 'space-evenly',
+      },
     },
     status: {
       border: 'solid 1px',
@@ -54,6 +70,11 @@ const StakingReward = ({isMobile}) => {
       letterSpacing: '1px',
       fontWeight: 700,
       lineHeight: '36px',
+      '@media(max-width: 1080px)': {
+        fontSize: '24px',
+        letterSpacing: '0px',
+        lineHeight: '24px',
+      },
     },
     dueDate : {
       letterSpacing: '1px',
@@ -69,7 +90,13 @@ const StakingReward = ({isMobile}) => {
       letterSpacing: '1px',
       fontSize: '24px',
       fontWeight: 500,
-      lineHeight: '24px'
+      lineHeight: '24px',
+      whiteSpace: 'nowrap',
+      '@media(max-width: 1080px)': {
+        fontSize: '18px',
+        letterSpacing: '0px',
+        lineHeight: '18px',
+      },
     },
     button: {
       margin: theme.spacing(1),
@@ -106,13 +133,13 @@ const StakingReward = ({isMobile}) => {
       </Grid>
       <Grid className={classes.line} />
       <Grid container className={classes.content} justify="space-between" alignItems="center">
-        <Grid container item xs={12} md>
+        <Grid container item>
           <Grid className={classes.tEther} container justify="center" direction="column">
             <Typography className={classes.ether}>0.57ETH</Typography>
             <Typography className={classes.rewards}>STAKING REWARDS</Typography>
           </Grid>
         </Grid>
-        <Grid container item xs={12} md>
+        <Grid container item className={classes.bEther}>
           <Button variant="contained" color="primary" className={classes.button}>
             CLAIM
           </Button>
