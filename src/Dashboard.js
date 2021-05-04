@@ -17,7 +17,8 @@ import StakingReward from "./components/StakingRewards";
 import MyContext from './lib/context'
 
 function Dashboard({account, balance}) {
-  const connectWallet = React.useContext(MyContext);
+  const connectWallet = React.useContext(MyContext).connectWallet;
+  const initiate = React.useContext(MyContext).initiate
   const responsiveTheme = useTheme();
   const isMobile = useMediaQuery(responsiveTheme.breakpoints.down('xs'), {
     defaultMatches: true
@@ -96,6 +97,7 @@ function Dashboard({account, balance}) {
                   {
                     balance !== '' ? (<Typography className={classes.topText}>{balance + "ETH"}</Typography>): ""
                   }
+                  <Button onClick={initiate}><Typography>Initiate</Typography></Button>
                 </Grid>
               </Grid>
             </Grid>

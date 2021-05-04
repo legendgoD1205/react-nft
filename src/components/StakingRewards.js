@@ -1,11 +1,13 @@
 import React from 'react'
 import {Grid} from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
-import Baby from '../assets/baby.png';
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import Baby from '../assets/baby.png'
+import Typography from "@material-ui/core/Typography"
+import Button from "@material-ui/core/Button"
+import MyContext from '../lib/context'
 
 const StakingReward = ({isMobile}) => {
+  const claimBaby = React.useContext(MyContext).claimBaby
   const useStyles = makeStyles(theme => ({
     root: {
       height: '294px',
@@ -128,7 +130,7 @@ const StakingReward = ({isMobile}) => {
           <Typography className={classes.status}>DELIVERED</Typography>
         </Grid>
         <Grid item xs={6} md container justify="center" alignItems="center">
-          <Button variant="contained" color="primary" className={classes.button}>
+          <Button onClick={claimBaby} variant="contained" color="primary" className={classes.button}>
             CLAIM
           </Button>
         </Grid>
