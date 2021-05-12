@@ -133,9 +133,9 @@ function Dashboard({account, balance}) {
             </Grid>
             {
               //test block
-              // (<Grid className={classes.testBlock} item xs={12}>
-              //   <TestCard />
-              // </Grid>)
+              (<Grid className={classes.testBlock} item xs={12}>
+                <TestCard />
+              </Grid>)
             }
 
             {

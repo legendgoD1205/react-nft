@@ -126,6 +126,7 @@ const Stake = () => {
     femaleEl.current.select.clearValue()
     setValueM([])
     setValueB([])
+    setValue([])
   }
 
   return (

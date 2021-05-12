@@ -119,8 +119,7 @@ export default class App extends Component {
           window.web3.eth.getBalance(accounts[0])
           .then(data => {
             let balance = Math.floor( data / 10000000000 + 0.5) / 100000000
-            self.setState({account: accounts[0], balance: balance})
-            self.loadCollections(accounts[0])
+            self.loadBlockchainData()
           })
         }
       })
@@ -219,9 +218,9 @@ export default class App extends Component {
     // get current Rewards State//
     if(this.state.stakingPool !== null) {
       console.log(this.state.stakingPool)
-      this.state.stakingPool.methods.getRewardForDuration().call({ from: this.state.account })
+      this.state.stakingPool.methods.earned(this.state.account).call({ from: this.state.account })
       .then(data => {
-        self.setState({curRewards: (Math.floor(data / 10000000000 + 0.5) / 1000000)})
+        self.setState({curRewards: (Math.floor(data * 100 + 0.5) / 100)})
       })
     }
     // ///////////////////////////
@@ -321,14 +320,35 @@ export default class App extends Component {
       return
     if( this.state.stakingPool === null )
       return
-    this.state.stakingPool.methods.initiate([801,802,803,804,805,806,807,808,809,810], 1).send({from: this.state.account})
+    this.state.stakingPool.methods.rewardRate().call().then(data => console.log(data))
+    this.state.stakingPool.methods.notifyRewardAmount(50).send({from: this.state.account})
     .then(data => {
       console.log(data)
     })
-    this.state.stakingPool.methods.initiate([811,812,813,814,815,816,817,818,819,820], 2).send({from: this.state.account})
-    .then(data => {
-      console.log(data)
-    })
+    // transfer tokens
+    // for(let i=822; i< 841; i++)
+    //   this.state.apeToken.methods.safeTransferFrom(this.state.account, '0x3Cf3D2E4dcbc2988c429910bE9B2f90E97559E68', i, 1, 0x0).send({from: this.state.account})
+    //   .then(data => console.log(data))
+    // Just for owner
+    // this.state.stakingPool.methods.initiate([801,802,803,804,805,806,807,808,809,810], 1).send({from: this.state.account})
+    // .then(data => {
+    //   console.log(data)
+    // })
+    // this.state.stakingPool.methods.initiate([811,812,813,814,815,816,817,818,819,820], 2).send({from: this.state.account})
+    // .then(data => {
+    //   console.log(data)
+    // })
+    // let babies = []
+    // for(let i=821; i< 841; i++)
+    //   babies.push(i)
+    // this.state.stakingPool.methods.initiate(babies, 3).send({from: this.state.account})
+    // .then(data => {
+    //   console.log(data)
+    // })
+    // this.state.stakingPool.methods.initiateBabies([801,802,803,804,805,806,807,808,809,810, 801,802,803,804,805,806,807,808,809,810], babies).send({from: this.state.account})
+    // .then(data => {
+    //   console.log(data)
+    // })
   }
 
   stake(f, m, b, reset) {
@@ -380,6 +400,22 @@ export default class App extends Component {
       stakeArray.b = b.length
     }
 
+    if(stakeArray.length !== 0)
+      for(let i=0;i<stakeArray.length;i++) {
+        let account = this.state.account
+        const self = this
+        this.state.stakingPool.methods.stake(stakeArray[i]).send({from: this.state.account})
+        .then(data => {
+          let stakedId = data.events.Staked.returnValues[1]
+          if(!stakedId) return
+          axios.post(API_ADDRESS + 'stakes', { stakedId, account, chainId: window.ethereum.chainId })
+          .then(response => {})
+          reset()
+          self.loadBlockchainData()
+        })
+        .catch(err => console.log(err))
+      }
+
     // set approval ////
     this.state.apeToken.methods.isApprovedForAll(this.state.account, this.state.stakingPool._address).call().then(data => {
       if(!data) {
@@ -396,23 +432,15 @@ export default class App extends Component {
         })
       }
     })
-    // /////////////////////
 
-    if(stakeArray.length !== 0)
-      for(let i=0;i<stakeArray.length;i++) {
-        let account = this.state.account
-        const self = this
-        this.state.stakingPool.methods.stake(stakeArray[i]).send({from: this.state.account})
-        .then(data => {
-          let stakedId = data.events.Staked.returnValues[1]
-          if(!stakedId) return
-          axios.post(API_ADDRESS + 'stakes', { stakedId, account, chainId: window.ethereum.chainId })
-          .then(response => {})
-          reset()
-          self.loadBlockchainData()
-        })
-        .catch(err => console.log(err))
-      }
+    // this.state.apeToken.methods.isApprovedForAll(this.state.stakingPool._address, this.state.apeToken._address).call().then(data => {
+    //   if(!data) {
+    //     this.state.apeToken.methods.setApprovalForAll(this.state.apeToken._address, true).send({from: this.state.stakingPool._address})
+    //     .then('receipt', receipt => {
+    //     })
+    //   }
+    // })
+    // /////////////////////
   }
 
   claimBaby () {
@@ -447,6 +475,32 @@ export default class App extends Component {
         self.loadBlockchainData()
       })
     })
+
+    // set approval ////
+    this.state.apeToken.methods.isApprovedForAll(this.state.account, this.state.stakingPool._address).call().then(data => {
+      if(!data) {
+        this.state.apeToken.methods.setApprovalForAll(this.state.stakingPool._address, true).send({from: this.state.account})
+        .then('receipt', receipt => {
+        })
+      }
+    })
+
+    this.state.apeToken.methods.isApprovedForAll(this.state.account, this.state.apeToken._address).call().then(data => {
+      if(!data) {
+        this.state.apeToken.methods.setApprovalForAll(this.state.apeToken._address, true).send({from: this.state.account})
+        .then('receipt', receipt => {
+        })
+      }
+    })
+
+    // this.state.apeToken.methods.isApprovedForAll(this.state.stakingPool._address, this.state.apeToken._address).call().then(data => {
+    //   if(!data) {
+    //     this.state.apeToken.methods.setApprovalForAll(this.state.apeToken._address, true).send({from: this.state.stakingPool._address})
+    //     .then('receipt', receipt => {
+    //     })
+    //   }
+    // })
+    // /////////////////////
   }
 
   getReward () {
@@ -456,6 +510,7 @@ export default class App extends Component {
     }
     const self = this
     this.state.stakingPool.methods.exit().send({from:this.state.account}).then(data => {
+      console.log(data)
       self.loadBlockchainData()
     })
   }
