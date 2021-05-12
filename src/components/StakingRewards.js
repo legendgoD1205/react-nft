@@ -8,13 +8,15 @@ import MyContext from '../lib/context'
 
 const StakingReward = ({isMobile}) => {
   const claimBaby = React.useContext(MyContext).claimBaby
+  const getReward = React.useContext(MyContext).getReward
+  const curRewards = React.useContext(MyContext).state.curRewards
   const useStyles = makeStyles(theme => ({
     root: {
       height: '294px',
       padding: theme.spacing(2),
       borderRadius: '12px',
       background: '#f1f1f1',
-      position: 'relative'
+      position: 'relative',
     },
     icon: {
       margin: theme.spacing(1),
@@ -29,15 +31,17 @@ const StakingReward = ({isMobile}) => {
     tEther: {
       marginLeft: theme.spacing(3),
       marginRight: theme.spacing(3),
-      '@media(max-width: 960px)': {
-        alignItems: 'center',
-      },
+      alignItems: 'center',
+      // '@media(max-width: 960px)': {
+      //   alignItems: 'center',
+      // },
     },
     bEther: {
-      justifyContent: 'flex-end',
-      '@media(max-width: 960px)': {
-        justifyContent: 'center',
-      },
+      // justifyContent: 'flex-end',
+      justifyContent: 'center',
+      // '@media(max-width: 960px)': {
+      //   justifyContent: 'center',
+      // },
     },
     date: {
       flexFlow: 'row',
@@ -49,14 +53,16 @@ const StakingReward = ({isMobile}) => {
     },
     content: {
       flexFlow: 'row',
-      padding: '0px 12px',
-      justifyContent: 'space-between',
-      '@media(max-width: 1080px)': {
-        padding: '0px'
-      },
-      '@media(max-width: 960px)': {
-        justifyContent: 'space-evenly',
-      },
+      // padding: '0px 12px',
+      // justifyContent: 'space-between',
+      justifyContent: 'space-evenly',
+      padding: '0px',
+      // '@media(max-width: 1080px)': {
+      //   padding: '0px'
+      // },
+      // '@media(max-width: 960px)': {
+      //   justifyContent: 'space-evenly',
+      // },
     },
     status: {
       border: 'solid 1px',
@@ -68,15 +74,18 @@ const StakingReward = ({isMobile}) => {
     },
     ether: {
       marginBottom: '2px',
-      fontSize: '36px',
-      letterSpacing: '1px',
+      // fontSize: '36px',
+      // letterSpacing: '1px',
       fontWeight: 700,
-      lineHeight: '36px',
-      '@media(max-width: 1080px)': {
-        fontSize: '24px',
-        letterSpacing: '0px',
-        lineHeight: '24px',
-      },
+      // lineHeight: '36px',
+      fontSize: '24px',
+      letterSpacing: '0px',
+      lineHeight: '24px',
+      // '@media(max-width: 1080px)': {
+      //   fontSize: '24px',
+      //   letterSpacing: '0px',
+      //   lineHeight: '24px',
+      // },
     },
     dueDate : {
       letterSpacing: '1px',
@@ -89,25 +98,33 @@ const StakingReward = ({isMobile}) => {
       fontWeight: 700
     },
     rewards: {
-      letterSpacing: '1px',
-      fontSize: '24px',
+      // letterSpacing: '1px',
+      // fontSize: '24px',
       fontWeight: 500,
-      lineHeight: '24px',
-      whiteSpace: 'nowrap',
-      '@media(max-width: 1080px)': {
-        fontSize: '18px',
-        whiteSpace: 'normal',
-        textAlign: 'center',
-        letterSpacing: '0px',
-        lineHeight: '18px',
-      },
+      // lineHeight: '24px',
+      // whiteSpace: 'nowrap',
+      fontSize: '18px',
+      whiteSpace: 'normal',
+      textAlign: 'center',
+      letterSpacing: '0px',
+      lineHeight: '18px',
+      // '@media(max-width: 1080px)': {
+      //   fontSize: '18px',
+      //   whiteSpace: 'normal',
+      //   textAlign: 'center',
+      //   letterSpacing: '0px',
+      //   lineHeight: '18px',
+      // },
     },
     button: {
       margin: theme.spacing(1),
       borderRadius: '14px',
       fontSize: '18px',
       fontWeight: 600,
-    }
+    },
+    disable: {
+      color: '#888',
+    },
   }));
 
   const classes = useStyles();
@@ -115,21 +132,21 @@ const StakingReward = ({isMobile}) => {
   return (
     <Grid className = {classes.root} container direction="column" justify="space-evenly">
       <Grid container direction="row" alignItems="center" justify="space-between">
-        <Grid item xs={6} md container justify="center" alignItems="center">
+        <Grid item xs={6} md={6} container justify="center" alignItems="center">
           <Grid className={classes.icon} container justify="center" alignItems="center">
             <img src={Baby} alt="avatar"/>
           </Grid>
         </Grid>
-        <Grid item xs={6} md container justify="center" alignItems="center">
+        <Grid item xs={6} md={6} container justify="center" alignItems="center">
           <Grid className={classes.tDate} container justify="center" direction="column">
             <Typography className={classes.dueDate}>Due Date</Typography>
-            <Typography className={classes.days}>0 <small>DAYS</small></Typography>
+            <Typography className={`${classes.days}`}>0 <small>DAYS</small></Typography>
           </Grid>
         </Grid>
-        <Grid item xs={6} md container justify="center" alignItems="center">
+        <Grid item xs={6} md={6} container justify="center" alignItems="center">
           <Typography className={classes.status}>DELIVERED</Typography>
         </Grid>
-        <Grid item xs={6} md container justify="center" alignItems="center">
+        <Grid item xs={6} md={6} container justify="center" alignItems="center">
           <Button onClick={claimBaby} variant="contained" color="primary" className={classes.button}>
             CLAIM
           </Button>
@@ -139,12 +156,12 @@ const StakingReward = ({isMobile}) => {
       <Grid container className={classes.content} justify="space-between" alignItems="center">
         <Grid container item>
           <Grid className={classes.tEther} container justify="center" direction="column">
-            <Typography className={classes.ether}>0.57ETH</Typography>
+            <Typography className={`${classes.ether}`}>{curRewards}ETH</Typography>
             <Typography className={classes.rewards}>STAKING REWARDS</Typography>
           </Grid>
         </Grid>
         <Grid container item className={classes.bEther}>
-          <Button variant="contained" color="primary" className={classes.button}>
+          <Button onClick={getReward} variant="contained" color="primary" className={classes.button}>
             CLAIM
           </Button>
         </Grid>

@@ -1,8 +1,10 @@
 import React from "react";
 import NFAStaked from './components/NFAStaked'
 import NFSCard from './components/NFACard';
+import TestCard from './components/TestCard';
 import Stake from './components/Stake';
-import {Grid, Paper, Container, Box, Button} from '@material-ui/core'
+import OnStaking from './components/OnStaking';
+import {Grid, Paper, Container, Button} from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
 import Logo from './assets/logo.png'
 import Male from './assets/male-gender.png';
@@ -17,8 +19,9 @@ import StakingReward from "./components/StakingRewards";
 import MyContext from './lib/context'
 
 function Dashboard({account, balance}) {
-  const connectWallet = React.useContext(MyContext).connectWallet;
-  const initiate = React.useContext(MyContext).initiate
+  let after = account.slice(-4, account.length)
+  const connectWallet = React.useContext(MyContext).connectWallet
+  const state = React.useContext(MyContext).state
   const responsiveTheme = useTheme();
   const isMobile = useMediaQuery(responsiveTheme.breakpoints.down('sm'), {
     defaultMatches: true
@@ -67,14 +70,22 @@ function Dashboard({account, balance}) {
       fontWeight: '700',
       fontSize: '14px',
       width: 'fit-content',
-      maxWidth: '220px',
-      marginRight: '12px',
+      maxWidth: '160px',
+      marginRight: '0px',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
+    },
+    accountLast: {
+      fontWeight: '700',
+      fontSize: '14px',
+      width: 'fit-content',
+      marginRight: '12px',
       '@media(max-width: 600px)': {
-        maxWidth: '165px',
-        marginRight: '0px',
+        marginRight: '4px',
       },
+    },
+    testBlock: {
+      marginTop: '42px',
     },
   }));
 
@@ -88,16 +99,18 @@ function Dashboard({account, balance}) {
               <Grid container direction="column">
                 <Grid container direction="row" alignItems="center" justify={isMobile ? "space-between" : "flex-end"}>
                   <Typography className={`${classes.topText} ${classes.Btn}`}>Home</Typography>
-                  <Button onClick={connectWallet} variant="contained" color="primary" className={classes.button}>
-                    Connect wallet
+                  <Button onClick={connectWallet} variant="contained" color="primary" className={classes.button} disabled={account !== ''} >
+                    {account !== '' ? 'Connected' : 'Connect Wallet'}
                   </Button>
                 </Grid>
                 <Grid container direction="column" alignItems="flex-end" justify="flex-end">
+                  <Grid container direction="row" alignItems="flex-end" justify="flex-end">
                     <Typography className={classes.accountName}>{account}</Typography>
+                    <Typography className={classes.accountLast}>{after}</Typography>
+                  </Grid>
                   {
                     balance !== '' ? (<Typography className={classes.topText}>{balance + "ETH"}</Typography>): ""
                   }
-                  <Button onClick={initiate}><Typography>Initiate</Typography></Button>
                 </Grid>
               </Grid>
             </Grid>
@@ -106,18 +119,28 @@ function Dashboard({account, balance}) {
             </Grid>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6} md={3}>
-                <NFAStaked bgColor={theme.palette.secondary.light} imgSrc={Female} count={150} text="NFA FEMALES STAKED" />
+                <NFAStaked bgColor={theme.palette.secondary.light} imgSrc={Female} count={state.femaleStakes} text="NFA FEMALES STAKED" />
               </Grid>
               <Grid className={classes.padding6} item xs={12} sm={6} md={3}>
-                <NFAStaked bgColor={theme.palette.primary.main} imgSrc={Male} count={250} text="NFA MALES STAKED"  />
+                <NFAStaked bgColor={theme.palette.primary.main} imgSrc={Male} count={state.maleStakes} text="NFA MALES STAKED"  />
               </Grid>
               <Grid className={classes.padding6} item xs={12} sm={6} md={3}>
-                <NFAStaked bgColor={theme.palette.primary.light} imgSrc={BabyCyan} count={50} text="NFA BABIES STAKED" />
+                <NFAStaked bgColor={theme.palette.primary.light} imgSrc={BabyCyan} count={state.babyStakes} text="NFA BABIES STAKED" />
               </Grid>
               <Grid className={classes.padding6} item xs={12} sm={6} md={3}>
-                <NFAStaked bgColor={theme.palette.third.light} imgSrc={Accounts} count={25} text="NFA FAMILIES STAKED" />
+                <NFAStaked bgColor={theme.palette.third.light} imgSrc={Accounts} count={0} text="NFA FAMILIES STAKED" />
               </Grid>
             </Grid>
+            {
+              //test block
+              // (<Grid className={classes.testBlock} item xs={12}>
+              //   <TestCard />
+              // </Grid>)
+            }
+
+            {
+              // end test block
+            }
             <Grid item>
               <Typography className={`${classes.firstTitle}`} variant="h4">MY NAFS</Typography>
             </Grid>
@@ -125,13 +148,19 @@ function Dashboard({account, balance}) {
               <NFSCard />
             </Grid>
             <Grid container spacing={4}>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={4}>
+                <Grid item>
+                  <Typography className={classes.title} variant="h4">ON STAKING</Typography>
+                </Grid>
+                <OnStaking />
+              </Grid>
+              <Grid item xs={12} md={4}>
                 <Grid item>
                   <Typography className={classes.title} variant="h4">STAKE</Typography>
                 </Grid>
                 <Stake />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={4}>
                 <Grid item>
                   <Typography className={classes.title} variant="h4">STAKING REWARDS</Typography>
                 </Grid>

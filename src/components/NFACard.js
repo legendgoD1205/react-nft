@@ -1,35 +1,36 @@
 import React from 'react'
 import {Grid, useTheme} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import NFAItem from "./NFAItem";
-import FemalesItem from "./FemalesItem";
-import Male from '../assets/male-gender.png';
-import Female from '../assets/female-sign.png';
-import Baby from '../assets/baby.png';
-import Accounts from '../assets/accounts_cyan.png';
-import Flag from '../assets/flag.png';
-import Typography from "@material-ui/core/Typography";
-import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery";
+import NFAItem from "./NFAItem"
+import FemalesItem from "./FemalesItem"
+import Male from '../assets/male-gender.png'
+import Female from '../assets/female-sign.png'
+import Baby from '../assets/baby.png'
+import Accounts from '../assets/accounts_cyan.png'
+import Flag from '../assets/flag.png'
+import Typography from "@material-ui/core/Typography"
+import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery"
 import MyContext from '../lib/context'
 
 const NFAStacked = () => {
   const state = React.useContext(MyContext).state;
 
   const femaleId = state.femaleId
-  const babyOf = state.babyOf
 
   let neverGiven = 0
   let oneGiven = 0
   let twoGiven = 0
 
   for(let i = 0; i < femaleId.length; i++) {
-      if(!babyOf.hasOwnProperty(femaleId[i]))
-        neverGiven++
-      else {
-        if(babyOf[femaleId[i]].length == 1)
-          oneGiven++
-        else
+      switch (femaleId[i]['baby_count']) {
+        case 2:
           twoGiven++
+          break;
+        case 1:
+          oneGiven++
+          break;
+        default:
+          neverGiven++
       }
   }
 
@@ -85,10 +86,10 @@ const NFAStacked = () => {
           <NFAItem title={Title("BABIES", 24)} imgSrc={Baby} count={state.babyId.length} />
         </Grid>
         <Grid className={classes.wrapper} item xs={12} sm={6} md>
-          <NFAItem title={Title("FAMILIES", 24)} imgSrc={Accounts} count={twoGiven} />
+          <NFAItem title={Title("FAMILIES", 24)} imgSrc={Accounts} disable count={0} />
         </Grid>
         <Grid className={classes.wrapper} item xs={12} sm={6} md>
-          <NFAItem title={Title("GAY MARRIAGE CERTIFICATES", 16)} imgSrc={Flag} count={1} />
+          <NFAItem title={Title("GAY MARRIAGE CERTIFICATES", 16)} disable imgSrc={Flag} count={0} />
         </Grid>
       </Grid>
     </Grid>

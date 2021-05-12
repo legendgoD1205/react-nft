@@ -1,20 +1,32 @@
 import React from 'react'
-import Select from 'react-select'
-import {toast} from 'react-toastify'
-import { Grid } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import Female from '../assets/female-sign.png'
 import Male from '../assets/male-gender.png'
 import Baby from '../assets/baby.png'
-// import Flag from '../assets/flag.png';
-import Button from "@material-ui/core/Button"
 import MyContext from '../lib/context'
 
-const Stake = () => {
-  const stake = React.useContext(MyContext).stake
-  const state = React.useContext(MyContext).state
+const OnStaking = () => {
 
-  const femaleEl = React.useRef(null)
+  const staked = React.useContext(MyContext).state.staked
+
+  let babies = 0
+  let females = 0
+  let males = 0
+  if(staked.length !== 0) {
+    staked.forEach(data => {
+      switch (data.gender) {
+        case 1:
+          females++
+          break
+        case 2:
+          males++
+          break
+        default:
+          babies++
+      }
+    })
+  }
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -78,55 +90,22 @@ const Stake = () => {
       borderRadius: '14px',
       fontSize: '18px',
       fontWeight: 600,
-    }
+    },
+    number: {
+      paddingInlineStart: '12px',
+      color: '#888',
+      fontSize: '18px',
+    },
+    totalNumber: {
+      color: '#888',
+      fontSize: '24px',
+    },
+    totalBox: {
+      margin: '16px 8px',
+    },
   }));
 
   const classes = useStyles();
-
-  let femaleData = []
-  femaleData.push({label: "None", value: null})
-
-  state.femaleId.forEach(data => femaleData.push({ label: data.name, value: data['token_id'] }))
-
-  let maleData = []
-
-  state.maleId.forEach(data => maleData.push({ label: data.name, value: data['token_id'] }))
-
-  let babyData = []
-
-  state.babyId.forEach(data => babyData.push({ label: data.name, value: data['token_id'] }))
-
-  const [value, setValue] = React.useState([])
-
-  const [valueM, setValueM] = React.useState([])
-
-  const [valueB, setValueB] = React.useState([])
-
-  const handleChange = (e) => {
-   setValue(e)
-  }
-
-  const handleChangeM = (e) => {
-    if(e.length > 2){
-      toast.error("2 Adult Male Max!")
-      return
-    }
-   setValueM(e)
-  }
-
-  const handleChangeB = (e) => {
-    if(e.length > 2){
-      toast.error("2 Babies Max!")
-      return
-    }
-   setValueB(e)
-  }
-
-  const reset = () => {
-    femaleEl.current.select.clearValue()
-    setValueM([])
-    setValueB([])
-  }
 
   return (
     <Grid container className = {classes.root}>
@@ -135,19 +114,19 @@ const Stake = () => {
           <Grid className={classes.icon} container justify="center" alignItems="center">
             <img width="60%" height="auto" src={Female} alt="avatar"/>
           </Grid>
-            <Select ref={femaleEl} className={classes.selectElem} options={femaleData} onChange={handleChange} />
+            <Typography variant="h3" className={classes.number}>{females !== 0 ? females : "None"}</Typography>
         </Grid>
         <Grid container direction="row" alignItems="center">
           <Grid className={classes.icon} container justify="center" alignItems="center">
             <img width="60%" height="auto" src={Male} alt="avatar"/>
           </Grid>
-          <Select value={valueM} className={classes.selectElem} options={maleData} onChange={handleChangeM} isMulti />
+          <Typography variant="h3" className={classes.number}>{males !== 0 ? males : "None"}</Typography>
         </Grid>
         <Grid container direction="row" alignItems="center">
           <Grid className={classes.icon} container justify="center" alignItems="center">
             <img width="60%" height="auto" src={Baby} alt="avatar"/>
           </Grid>
-            <Select value={valueB} className={classes.selectElem} options={babyData} onChange={handleChangeB} isMulti />
+            <Typography variant="h3" className={classes.number}>{babies !== 0 ? babies : "None"}</Typography>
         </Grid>
         {
         //   <Grid container direction="row" alignItems="center">
@@ -158,19 +137,11 @@ const Stake = () => {
         // </Grid>
       }
       </Grid>
-      <Grid item xs={12} md={12} container alignItems="flex-end" justify="center">
-        <Button onClick={() => {
-            stake(value, valueM, valueB, reset)
-          }}
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          STAKE
-        </Button>
+      <Grid item xs={12} md={12} container alignItems="flex-end" justify="center" className={classes.totalBox}>
+      <Typography variant="h3" className={classes.totalNumber}>Total: {staked.length}</Typography>
       </Grid>
     </Grid>
   )
 }
 
-export default Stake
+export default OnStaking

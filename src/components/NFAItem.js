@@ -15,6 +15,9 @@ const useStyes = makeStyles(theme => ({
     borderRadius: '12px',
     backgroundColor: 'white',
   },
+  disable: {
+    color: '#888',
+  },
   count: {
     margin: theme.spacing(1),
     padding: '20px',
@@ -26,7 +29,7 @@ const useStyes = makeStyles(theme => ({
   }
 }));
 
-const NFAItem = ({title, imgSrc, count}) => {
+const NFAItem = ({title, imgSrc, count, disable}) => {
   const classes = useStyes();
   return(
     <Grid className={classes.root}>
@@ -37,7 +40,7 @@ const NFAItem = ({title, imgSrc, count}) => {
           </Grid>
           {title}
         </Grid>
-        <Typography className={classes.count} variant="h2" align="center">{count}</Typography>
+        <Typography className={ disable ? `${classes.disable} ${classes.count}` : classes.count } variant="h2" align="center">{count}</Typography>
       </Grid>
     </Grid>
   )

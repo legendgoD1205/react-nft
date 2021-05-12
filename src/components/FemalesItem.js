@@ -1,8 +1,7 @@
-import React from "react";
-import {makeStyles} from "@material-ui/styles";
-import theme from "../theme";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import React from "react"
+import {makeStyles} from "@material-ui/styles"
+import Grid from "@material-ui/core/Grid"
+import Typography from "@material-ui/core/Typography"
 
 const useStyes = makeStyles(theme => ({
   root: {
