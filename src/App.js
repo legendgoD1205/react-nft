@@ -272,8 +272,8 @@ export default class App extends Component {
         } else { //for test
           value.name = "APE #" + value.token_id
 
-          // switch (value['id'] %3 + 1) { // for RINKEBY
-          switch (value['gender']) { // for localhost
+          switch (value['id'] %3 + 1) { // for RINKEBY
+          // switch (value['gender']) { // for localhost
             case 1:
               femaleId.push(value)
               break
