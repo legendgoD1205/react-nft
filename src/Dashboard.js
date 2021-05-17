@@ -54,14 +54,15 @@ function Dashboard({ account, balance }) {
     emailjs.init(EMAILJS_USER_ID);
     let html = `<h4>Name: ${name}</h4><h4>E-mail: ${email}</h4><h4>Wallet: ${account}</h4>`;
     let data = { from_name: name, message: html };
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data).then(
-      (data) => {
-        console.log(data);
-      },
-      function (err) {
-        console.log(err);
-      }
-    );
+    // emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data).then(
+    //   (data) => {
+    //     console.log(data);
+    //   },
+    //   function (err) {
+    //     console.log(err);
+    //   }
+    // );
+    toast.success("Operation successfully!")
     setTokenModal(false);
   };
 
