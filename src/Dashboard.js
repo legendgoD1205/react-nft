@@ -132,7 +132,7 @@ function Dashboard({ account, balance }) {
       justifyContent: "center",
     },
     modalBox: {
-      width: "80%",
+      width: "fit-content",
       padding: theme.spacing(2),
       textAlign: "center",
     },
