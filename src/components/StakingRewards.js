@@ -9,7 +9,7 @@ import MyContext from '../lib/context'
 const StakingReward = ({isMobile}) => {
   const claimBaby = React.useContext(MyContext).claimBaby
   const getReward = React.useContext(MyContext).getReward
-  const curRewards = React.useContext(MyContext).state.curRewards
+  const curRewards = (React.useContext(MyContext).state.curRewards / Math.pow(10, 18) + "").slice(0, 5)
   const useStyles = makeStyles(theme => ({
     root: {
       height: '294px',
