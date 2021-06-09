@@ -271,7 +271,7 @@ function Dashboard({ account, balance }) {
           }
           <Grid item>
             <Typography className={`${classes.firstTitle}`} variant="h4">
-              MY NAFS
+              MY NFAS
             </Typography>
           </Grid>
           <Grid item xs={12}>

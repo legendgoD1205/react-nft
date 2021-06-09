@@ -40,13 +40,13 @@ export default class App extends Component {
     this.stake = this.stake.bind(this);
     this.claimBaby = this.claimBaby.bind(this);
     this.getReward = this.getReward.bind(this);
-    this.generateTest = this.generateTest.bind(this);
   }
 
   componentDidMount() {
     if (window.ethereum) {
       this.connectWallet();
     }
+    window.onbeforeunload = () => false;
   }
 
   componentDidUpdate() {
@@ -109,6 +109,7 @@ export default class App extends Component {
             maleStakes: 0,
             babyStakes: 0,
             curRewards: 0,
+            dueDate: 0,
           });
           return false;
         }
@@ -157,7 +158,7 @@ export default class App extends Component {
 
     // Load contracts
     try {
-      const apeToken = new web3.eth.Contract(Apetoken.abi, APETOKEN_ADDRESS);
+      const apeToken = new web3.eth.Contract(Apetoken, APETOKEN_ADDRESS);
       this.setState({ apeToken });
     } catch (err) {
       console.log(err);
@@ -166,10 +167,18 @@ export default class App extends Component {
 
     try {
       const stakingPool = new web3.eth.Contract(
-        Stakingpool.abi,
+        Stakingpool,
         STAKINGPOOL_ADDRESS
       );
+
       this.setState({ stakingPool });
+
+      const dateValue = await stakingPool.methods
+        .breedingEnd(accounts[0])
+        .call();
+
+      const endDate = new Date(dateValue * 1000);
+      this.setState({ dueDate: endDate - new Date() });
     } catch (err) {
       console.log(err);
       this.setState({ stakingPool: null });
@@ -238,7 +247,7 @@ export default class App extends Component {
           .then((data) => {
             self.setState({ curRewards: Math.floor(data * 100 + 0.5) / 100 });
           });
-      }, 6000)
+      }, 6000);
     }
     // ///////////////////////////
 
@@ -263,49 +272,9 @@ export default class App extends Component {
       .then(function (response) {
         // handle success
         let data = response.data.assets;
-
         let token_ids = [];
         data.forEach((value) => {
           token_ids.push(value.token_id);
-          if (
-            value.hasOwnProperty("traits") &&
-            value["traits"].hasOwnProperty("gender")
-          ) {
-            let traits = value.traits;
-            if (traits.length > 0) {
-              for (let i = 0; i < traits.length; i++) {
-                if (traits[i]["trait_type"] === "Gender") {
-                  switch (traits[i].value) {
-                    case "Male":
-                      maleId.push(value);
-                      break;
-                    case "Female":
-                      femaleId.push(value);
-                      break;
-                    default:
-                      babyId.push(value);
-                  }
-                }
-              }
-            }
-          } else {
-            //for test
-            value.name = "APE #" + value.token_id;
-
-            switch (value['id'] %3 + 1) { // for RINKEBY
-            // switch (
-            //   value["gender"] // for localhost
-            // ) {
-              case 1:
-                femaleId.push(value);
-                break;
-              case 2:
-                maleId.push(value);
-                break;
-              default:
-                babyId.push(value);
-            }
-          }
         });
         // enable api when loading tokens from network
         axios
@@ -329,21 +298,75 @@ export default class App extends Component {
             const forEach = (_) => {
               let addData = [];
               data.forEach((oneData) => {
-                if (ids.includes(oneData["token_id"]))
+                if (ids.includes(oneData["token_id"])) {
+                  if (
+                    oneData.hasOwnProperty("traits") &&
+                    oneData["traits"].hasOwnProperty("gender")
+                  ) {
+                    let traits = oneData.traits;
+                    if (traits.length > 0) {
+                      for (let i = 0; i < traits.length; i++) {
+                        if (traits[i]["trait_type"] === "Gender") {
+                          switch (traits[i].oneData) {
+                            case "Male":
+                              oneData["gender"] = 2;
+                              break;
+                            case "Female":
+                              oneData["gender"] = 1;
+                              break;
+                            default:
+                              oneData["gender"] = 3;
+                          }
+                        }
+                      }
+                    }
+                  } else {
+                    oneData["gender"] = (oneData["id"] % 3) + 1; // for RINKEBY
+                  }
+
                   addData.push({
+                    name: oneData["name"],
                     token_id: oneData["token_id"],
-                    gender: (oneData["id"] % 3) + 1,
+                    gender: oneData["gender"],
+                    traits: oneData["traits"].length,
                     chainId: window.ethereum.chainId,
-                  }); // for RINKEBY Test Network
+                  });
+                }
               });
+
               axios
                 .post(API_ADDRESS + "createtokens", { addData, account })
-                .then((status) => console.log(status));
+                .then((status) => {
+                  const params = {
+                    owner: account,
+                    chainId: window.ethereum.chainId,
+                  };
+
+                  axios
+                    .get(API_ADDRESS + "initiatedTokens", { params })
+                    .then(({ data }) => {
+                      data = data.assets;
+                      data.forEach((ape) => {
+                        switch (ape["gender"]) {
+                          case 1:
+                            femaleId.push(ape);
+                            break;
+                          case 2:
+                            maleId.push(ape);
+                            break;
+                          default:
+                            babyId.push(ape);
+                        }
+                      });
+
+                      self.setState({ maleId, femaleId, babyId });
+                    });
+                });
             };
+
             forEach();
           });
         // //////////////////////////////////////////////
-        self.setState({ maleId, femaleId, babyId });
       })
       .catch(function (error) {
         // handle error
@@ -353,62 +376,44 @@ export default class App extends Component {
       });
   }
 
-  // generate test data
-  generateTest() {
-    if (this.state.account === "") return;
-    if (this.state.stakingPool === null) return;
-    // console.log(this.state.stakingPool)
-    // this.state.stakingPool.methods.earned(this.state.account).call()
-    // .then(data => {
-    //   console.log(data)
-    // })
-    // this.state.stakingPool.methods.getRewardForDuration().call()
-    // .then(data => {
-    //   console.log(data)
-    // })
-    this.state.stakingPool.methods
-      .rewardRate()
-      .call()
-      .then((data) => console.log(data));
-    // this.state.stakingPool.methods.deposit().send({from: this.state.account, value: 50000000000000000000}).then(data => console.log(data))
-    this.state.stakingPool.methods
-      .notifyRewardAmount(5000000000000000)
-      .send({ from: this.state.account })
-      .then((data) => {
-        console.log(data);
-      });
-    // transfer tokens
-    // for(let i=822; i< 841; i++)
-    //   this.state.apeToken.methods.safeTransferFrom(this.state.account, '0x3Cf3D2E4dcbc2988c429910bE9B2f90E97559E68', i, 1, 0x0).send({from: this.state.account})
-    //   .then(data => console.log(data))
-    // Just for owner
-    // this.state.stakingPool.methods.initiate([801,802,803,804,805,806,807,808,809,810], 1).send({from: this.state.account})
-    // .then(data => {
-    //   console.log(data)
-    // })
-    // this.state.stakingPool.methods.initiate([811,812,813,814,815,816,817,818,819,820], 2).send({from: this.state.account})
-    // .then(data => {
-    //   console.log(data)
-    // })
-    // let babies = []
-    // for(let i=821; i< 841; i++)
-    //   babies.push(i)
-    // this.state.stakingPool.methods.initiate(babies, 3).send({from: this.state.account})
-    // .then(data => {
-    //   console.log(data)
-    // })
-    // this.state.stakingPool.methods.initiateBabies([801,802,803,804,805,806,807,808,809,810, 801,802,803,804,805,806,807,808,809,810], babies).send({from: this.state.account})
-    // .then(data => {
-    //   console.log(data)
-    // })
-  }
-
   stake(f, m, b, reset) {
     if (this.state.stakingPool === null || this.state.apeToken === null) {
       toast.error("Failed loading Contract!");
       return;
     }
 
+    // set approval ////
+    this.state.apeToken.methods
+      .isApprovedForAll(this.state.account, this.state.stakingPool._address)
+      .call()
+      .then((data) => {
+        if (!data) {
+          this.state.apeToken.methods
+            .setApprovalForAll(this.state.stakingPool._address, true)
+            .send({ from: this.state.account })
+            .then("receipt", (receipt) => {});
+        }
+      });
+
+    this.state.apeToken.methods
+      .isApprovedForAll(this.state.account, this.state.apeToken._address)
+      .call()
+      .then((data) => {
+        if (!data) {
+          this.state.apeToken.methods
+            .setApprovalForAll(this.state.apeToken._address, true)
+            .send({ from: this.state.account })
+            .then("receipt", (receipt) => {
+              this.stakeAction(f, m, b, reset);
+            });
+        } else {
+          this.stakeAction(f, m, b, reset);
+        }
+      });
+    // ////////////////
+  }
+
+  stakeAction(f, m, b, reset) {
     let cm = 0,
       cf = 0,
       cb = 0;
@@ -454,62 +459,17 @@ export default class App extends Component {
       stakeArray.b = b.length;
     }
 
-    if (stakeArray.length !== 0)
-      for (let i = 0; i < stakeArray.length; i++) {
-        let account = this.state.account;
-        const self = this;
-        this.state.stakingPool.methods
-          .stake(stakeArray[i])
-          .send({ from: this.state.account })
-          .then((data) => {
-            let stakedId = data.events.Staked.returnValues[1];
-            if (!stakedId) return;
-            axios
-              .post(API_ADDRESS + "stakes", {
-                stakedId,
-                account,
-                chainId: window.ethereum.chainId,
-              })
-              .then((response) => {});
-            reset();
-            self.loadBlockchainData();
-          })
-          .catch((err) => console.log(err));
-      }
-
-    // set approval ////
-    this.state.apeToken.methods
-      .isApprovedForAll(this.state.account, this.state.stakingPool._address)
-      .call()
-      .then((data) => {
-        if (!data) {
-          this.state.apeToken.methods
-            .setApprovalForAll(this.state.stakingPool._address, true)
-            .send({ from: this.state.account })
-            .then("receipt", (receipt) => {});
-        }
-      });
-
-    this.state.apeToken.methods
-      .isApprovedForAll(this.state.account, this.state.apeToken._address)
-      .call()
-      .then((data) => {
-        if (!data) {
-          this.state.apeToken.methods
-            .setApprovalForAll(this.state.apeToken._address, true)
-            .send({ from: this.state.account })
-            .then("receipt", (receipt) => {});
-        }
-      });
-
-    // this.state.apeToken.methods.isApprovedForAll(this.state.stakingPool._address, this.state.apeToken._address).call().then(data => {
-    //   if(!data) {
-    //     this.state.apeToken.methods.setApprovalForAll(this.state.apeToken._address, true).send({from: this.state.stakingPool._address})
-    //     .then('receipt', receipt => {
-    //     })
-    //   }
-    // })
-    // /////////////////////
+    if (stakeArray.length !== 0) {
+      const self = this;
+      this.state.stakingPool.methods
+        .stakeBatch(stakeArray)
+        .send({ from: this.state.account })
+        .then((data) => {
+          reset();
+          self.loadBlockchainData();
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
   claimBaby() {
@@ -530,8 +490,12 @@ export default class App extends Component {
       toast.error("No female staked!");
       return;
     }
-    if (femaleData["baby_count"] >= 2) {
-      toast.error("Staked female already has 2 babies!");
+
+    let maxBabyCount =
+      femaleData["class"] === 3 ? 6 : femaleData["class"] === 2 ? 4 : 2;
+
+    if (femaleData["baby_count"] >= maxBabyCount) {
+      toast.error("Staked female already has max babies!");
       return;
     }
 
@@ -549,40 +513,6 @@ export default class App extends Component {
             self.loadBlockchainData();
           });
       });
-
-    // set approval ////
-    this.state.apeToken.methods
-      .isApprovedForAll(this.state.account, this.state.stakingPool._address)
-      .call()
-      .then((data) => {
-        if (!data) {
-          this.state.apeToken.methods
-            .setApprovalForAll(this.state.stakingPool._address, true)
-            .send({ from: this.state.account })
-            .then("receipt", (receipt) => {});
-        }
-      });
-
-    this.state.apeToken.methods
-      .isApprovedForAll(this.state.account, this.state.apeToken._address)
-      .call()
-      .then((data) => {
-        if (!data) {
-          this.state.apeToken.methods
-            .setApprovalForAll(this.state.apeToken._address, true)
-            .send({ from: this.state.account })
-            .then("receipt", (receipt) => {});
-        }
-      });
-
-    // this.state.apeToken.methods.isApprovedForAll(this.state.stakingPool._address, this.state.apeToken._address).call().then(data => {
-    //   if(!data) {
-    //     this.state.apeToken.methods.setApprovalForAll(this.state.apeToken._address, true).send({from: this.state.stakingPool._address})
-    //     .then('receipt', receipt => {
-    //     })
-    //   }
-    // })
-    // /////////////////////
   }
 
   getReward() {
@@ -601,16 +531,11 @@ export default class App extends Component {
           .exit()
           .send({ from: this.state.account })
           .then((data) => {
-            if (rewards !== 0) {
-              axios
-                .post(API_ADDRESS + "getRewards", {
-                  account_id: this.state.account,
-                  chain_id: window.ethereum.chainId,
-                  rewardsAmount: rewards
-                })
-                .then((status) => {});
-            }
-
+            axios.post(API_ADDRESS + "getRewards", {
+              account_id: this.state.account,
+              chain_id: window.ethereum.chainId,
+              rewardsAmount: rewards,
+            });
             self.loadBlockchainData();
           });
       });
