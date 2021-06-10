@@ -301,7 +301,7 @@ export default class App extends Component {
                 if (ids.includes(oneData["token_id"])) {
                   if (
                     oneData.hasOwnProperty("traits") &&
-                    oneData["traits"].hasOwnProperty("gender")
+                    oneData["traits"].hasOwnProperty("Gender")
                   ) {
                     let traits = oneData.traits;
                     if (traits.length > 0) {
