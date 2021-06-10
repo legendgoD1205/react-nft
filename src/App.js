@@ -301,13 +301,13 @@ export default class App extends Component {
                 if (ids.includes(oneData["token_id"])) {
                   if (
                     oneData.hasOwnProperty("traits") &&
-                    oneData["traits"].hasOwnProperty("Gender")
+                    oneData["traits"].length !== 0
                   ) {
                     let traits = oneData.traits;
                     if (traits.length > 0) {
                       for (let i = 0; i < traits.length; i++) {
                         if (traits[i]["trait_type"] === "Gender") {
-                          switch (traits[i].oneData) {
+                          switch (traits[i].value) {
                             case "Male":
                               oneData["gender"] = 2;
                               break;
