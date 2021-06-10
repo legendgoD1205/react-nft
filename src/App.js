@@ -465,22 +465,6 @@ export default class App extends Component {
         .stakeBatch(stakeArray)
         .send({ from: this.state.account })
         .then((data) => {
-          console.log(data);
-          let stakedIds = data.events.Staked;
-          if (!stakedIds) return;
-          if (!stakedIds.hasOwnProperty("length"))
-            stakedIds = [stakedIds.returnValues[1]];
-          else stakedIds = stakedIds.map((data) => data.returnValues[1]);
-
-          stakedIds.forEach((stakedId) => {
-            axios
-              .post(API_ADDRESS + "stakes", {
-                stakedId,
-                account: self.state.account,
-                chainId: window.ethereum.chainId,
-              })
-              .then((response) => {});
-          });
           reset();
           self.loadBlockchainData();
         })
@@ -521,13 +505,7 @@ export default class App extends Component {
       .claimBaby()
       .send({ from: this.state.account })
       .then((data) => {
-        let babyId = data.events.Claimed.returnValues[1];
-        axios
-          .post(API_ADDRESS + "claimBaby", { babyId, femaleData })
-          .then((data) => {
-            console.log(data);
-            self.loadBlockchainData();
-          });
+        self.loadBlockchainData();
       });
   }
 
@@ -547,11 +525,6 @@ export default class App extends Component {
           .exit()
           .send({ from: this.state.account })
           .then((data) => {
-            axios.post(API_ADDRESS + "getRewards", {
-              account_id: this.state.account,
-              chain_id: window.ethereum.chainId,
-              rewardsAmount: rewards,
-            });
             self.loadBlockchainData();
           });
       });
