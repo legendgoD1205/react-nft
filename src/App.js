@@ -465,6 +465,22 @@ export default class App extends Component {
         .stakeBatch(stakeArray)
         .send({ from: this.state.account })
         .then((data) => {
+          console.log(data);
+          let stakedIds = data.events.Staked;
+          if (!stakedIds) return;
+          if (!stakedIds.hasOwnProperty("length"))
+            stakedIds = [stakedIds.returnValues[1]];
+          else stakedIds = stakedIds.map((data) => data.returnValues[1]);
+
+          stakedIds.forEach((stakedId) => {
+            axios
+              .post(API_ADDRESS + "stakes", {
+                stakedId,
+                account: self.state.account,
+                chainId: window.ethereum.chainId,
+              })
+              .then((response) => {});
+          });
           reset();
           self.loadBlockchainData();
         })
