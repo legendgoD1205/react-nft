@@ -177,7 +177,7 @@ function Dashboard({ account, balance }) {
                   >
                     {account !== "" ? "Connected" : "Connect Wallet"}
                   </Button>
-                  <Button
+                  {/* <Button
                     onClick={() => setTokenModal(true)}
                     variant="contained"
                     color="primary"
@@ -185,7 +185,7 @@ function Dashboard({ account, balance }) {
                     disabled={account === ""}
                   >
                     Request Token
-                  </Button>
+                  </Button> */}
                 </Grid>
               </Grid>
               <Grid
