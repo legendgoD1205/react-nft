@@ -391,7 +391,11 @@ export default class App extends Component {
           this.state.apeToken.methods
             .setApprovalForAll(this.state.stakingPool._address, true)
             .send({ from: this.state.account })
-            .then("receipt", (receipt) => {});
+            .then("receipt", (receipt) => {
+              this.stakeAction(f, m, b, reset);
+            });
+        } else {
+          this.stakeAction(f, m, b, reset);
         }
       });
 
@@ -403,11 +407,7 @@ export default class App extends Component {
           this.state.apeToken.methods
             .setApprovalForAll(this.state.apeToken._address, true)
             .send({ from: this.state.account })
-            .then("receipt", (receipt) => {
-              this.stakeAction(f, m, b, reset);
-            });
-        } else {
-          this.stakeAction(f, m, b, reset);
+            .then("receipt", (receipt) => {});
         }
       });
     // ////////////////
