@@ -272,6 +272,7 @@ export default class App extends Component {
       .then(function (response) {
         // handle success
         let data = response.data.assets;
+        console.log(data);
         let token_ids = [];
         data.forEach((value) => {
           token_ids.push(value.token_id);
@@ -391,7 +392,7 @@ export default class App extends Component {
           this.state.apeToken.methods
             .setApprovalForAll(this.state.stakingPool._address, true)
             .send({ from: this.state.account })
-            .then("receipt", (receipt) => {
+            .then((data) => {
               this.stakeAction(f, m, b, reset);
             });
         } else {
