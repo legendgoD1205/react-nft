@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { ThemeProvider } from "@material-ui/styles";
 import { ToastContainer, toast } from "react-toastify";
 import theme from "./theme";
@@ -15,7 +15,7 @@ import {
   CHAIN_ID,
 } from "./lib/constant";
 import Apetoken from "./abis/ApeToken.json";
-import Stakingpool from "./abis/StakingPool.json";
+import Stakingpool from "./abis/StakingPoolNew.json";
 import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
@@ -56,14 +56,6 @@ export default class App extends Component {
   }
 
   async connectWallet() {
-    if (window.ethereum) {
-      if (
-        window.ethereum.chainId !== CHAIN_ID &&
-        window.ethereum.chainId !== null
-      ) {
-        toast.error("Please select correct network!");
-      }
-    }
     let res = await this.loadWeb3();
     if (res) await this.loadBlockchainData();
   }
