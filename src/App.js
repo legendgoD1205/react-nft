@@ -165,12 +165,6 @@ export default class App extends Component {
 
       this.setState({ stakingPool });
 
-      const dateValue = await stakingPool.methods
-        .breedingEnd(accounts[0])
-        .call();
-
-      const endDate = new Date(dateValue * 1000);
-      this.setState({ dueDate: endDate - new Date() });
     } catch (err) {
       console.log(err);
       this.setState({ stakingPool: null });
@@ -184,6 +178,7 @@ export default class App extends Component {
 
     // get Staked List ////
     if (this.state.stakingPool !== null) {
+      const self = this;
       this.state.stakingPool.methods
         .getStaked(this.state.account)
         .call()
@@ -196,9 +191,23 @@ export default class App extends Component {
                 "&chainId=" +
                 window.ethereum.chainId
             )
-            .then((response) => {
-              this.setState({ staked: response.data });
-            });
+            .then(async (response) => {
+              self.setState({ staked: response.data });
+              let data = response.data;
+              let female;
+              for(let i=0;i<data.length;i++) {
+                if(data[i].gender === 1) {
+                  female = data[i];
+                  break;
+                }
+              }
+              const dateValue = await self.stakingPool.methods
+              .breedingEnd(female['token_id'])
+              .call();
+      
+              const endDate = new Date(dateValue * 1000);
+                self.setState({ dueDate: endDate - new Date() });
+              });
         });
     }
 
@@ -407,36 +416,6 @@ export default class App extends Component {
   }
 
   stakeAction(f, m, b, reset) {
-    let cm = 0,
-      cf = 0,
-      cb = 0;
-    let staked = this.state.staked;
-    staked.forEach((data) => {
-      switch (data.gender) {
-        case 1:
-          cf++;
-          break;
-        case 2:
-          cm++;
-          break;
-        default:
-          cb++;
-      }
-    });
-
-    if (m.length + cm > 2) {
-      toast.error("2 Adult Male Max!");
-      return;
-    }
-    if (b.length + cb > 2) {
-      toast.error("2 Babies Max!");
-      return;
-    }
-    if (f.hasOwnProperty("value") && cf !== 0 && f.value !== null) {
-      toast.error("1 Adult Female Max!");
-      return;
-    }
-
     let stakeArray = [];
     let stakeCount = { f: 0, m: 0, b: 0 };
     if (f.hasOwnProperty("value") && f.value !== null) {

@@ -2,7 +2,7 @@
 export const API_URL_BEFORE = "https://api.opensea.io/api/v1/assets?owner="
 export const API_URL_AFTER = "&order_direction=desc&offset=0&limit=50&collection=nonfungibleapes"
 export const APETOKEN_ADDRESS = "0x495f947276749ce646f68ac8c248420045cb7b5e"
-export const STAKINGPOOL_ADDRESS = "0x07DE828Fe11D8d0fD4985C23a6eD6f71C111472E"
+export const STAKINGPOOL_ADDRESS = "0x3bccbbde5b9ca293e065aa17cc3123f24b4e005b"
 export const CHAIN_ID = "0x1"
 
 // RINKEBY API ADDRESS MY
