@@ -1,4 +1,4 @@
-import React, { Component, useContext } from "react";
+import React, { Component } from "react";
 import { ThemeProvider } from "@material-ui/styles";
 import { ToastContainer, toast } from "react-toastify";
 import theme from "./theme";
@@ -110,7 +110,6 @@ export default class App extends Component {
           return false;
         } else {
           window.web3.eth.getBalance(accounts[0]).then((data) => {
-            let balance = Math.floor(data / 10000000000 + 0.5) / 100000000;
             self.loadBlockchainData();
           });
         }
@@ -164,7 +163,6 @@ export default class App extends Component {
       );
 
       this.setState({ stakingPool });
-
     } catch (err) {
       console.log(err);
       this.setState({ stakingPool: null });
@@ -194,20 +192,22 @@ export default class App extends Component {
             .then(async (response) => {
               self.setState({ staked: response.data });
               let data = response.data;
-              let female;
-              for(let i=0;i<data.length;i++) {
-                if(data[i].gender === 1) {
+              let female = null;
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].gender === 1) {
                   female = data[i];
                   break;
                 }
               }
-              const dateValue = await self.stakingPool.methods
-              .breedingEnd(female['token_id'])
-              .call();
-      
-              const endDate = new Date(dateValue * 1000);
+              if (female !== null) {
+                const dateValue = await self.state.stakingPool.methods
+                  .breedingEnd(female["token_id"])
+                  .call();
+
+                const endDate = new Date(dateValue * 1000);
                 self.setState({ dueDate: endDate - new Date() });
-              });
+              }
+            });
         });
     }
 
