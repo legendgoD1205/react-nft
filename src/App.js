@@ -57,6 +57,12 @@ export default class App extends Component {
   }
 
   async connectWallet() {
+    // enable ethereum
+    await window.ethereum.enable();
+    if (CHAIN_ID !== window.ethereum.chainId) {
+      toast.error("Please select ethereum mainnet!")
+      return;
+    }
     let res = await this.loadWeb3();
     if (res) await this.loadBlockchainData();
   }
@@ -84,7 +90,6 @@ export default class App extends Component {
           });
           return false;
         }
-        self.loadBlockchainData();
       });
 
       window.ethereum.on("accountsChanged", function (accounts) {
@@ -141,9 +146,9 @@ export default class App extends Component {
 
   async loadBlockchainData() {
     if (CHAIN_ID !== window.ethereum.chainId) {
+      toast.error("Please select ethereum mainnet!")
       return;
     }
-
     const web3 = window.web3;
     // Load account
     const accounts = await web3.eth.getAccounts();
@@ -241,16 +246,16 @@ export default class App extends Component {
     // ///////////////////////
 
     // get current Rewards State//
-    if (this.state.stakingPool !== null) {
-      setInterval(() => {
+    setInterval(() => {
+      if (this.state.stakingPool !== null) {
         self.state.stakingPool.methods
-          .earned(self.state.account)
-          .call({ from: self.state.account })
-          .then((data) => {
-            self.setState({ curRewards: Math.floor(data * 100 + 0.5) / 100 });
-          });
-      }, 6000);
-    }
+        .earned(self.state.account)
+        .call({ from: self.state.account })
+        .then((data) => {
+          self.setState({ curRewards: Math.floor(data * 100 + 0.5) / 100 });
+        });
+      }
+    }, 6000);
     // ///////////////////////////
 
     this.loadCollections(accounts[0]);
