@@ -40,6 +40,7 @@ export default class App extends Component {
     this.stake = this.stake.bind(this);
     this.claimBaby = this.claimBaby.bind(this);
     this.getReward = this.getReward.bind(this);
+    this.withdraw = this.withdraw.bind(this);
   }
 
   componentDidMount() {
@@ -273,7 +274,6 @@ export default class App extends Component {
       .then(function (response) {
         // handle success
         let data = response.data.assets;
-        console.log(data);
         let token_ids = [];
         data.forEach((value) => {
           token_ids.push(value.token_id);
@@ -412,15 +412,26 @@ export default class App extends Component {
             .then("receipt", (receipt) => {});
         }
       });
-    // ////////////////
+    ////////////////
+  }
+
+  withdraw() {
+    if (this.state.stakingPool === null || this.state.apeToken === null) {
+      toast.error("Failed loading Contract!");
+      return;
+    }
+
+    this.state.stakingPool.methods
+      .withdrawAll()
+      .send({ from: this.state.account });
   }
 
   stakeAction(f, m, b, reset) {
     let stakeArray = [];
     let stakeCount = { f: 0, m: 0, b: 0 };
-    if (f.hasOwnProperty("value") && f.value !== null) {
-      stakeArray = [f.value];
-      stakeCount.f = 1;
+    if (f.length !== 0) {
+      f.forEach((data) => stakeArray.push(data.value));
+      stakeCount.f = f.length;
     }
     if (m.length !== 0) {
       m.forEach((data) => stakeArray.push(data.value));

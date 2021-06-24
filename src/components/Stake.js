@@ -12,6 +12,7 @@ import MyContext from "../lib/context";
 
 const Stake = () => {
   const stake = React.useContext(MyContext).stake;
+  const withdraw = React.useContext(MyContext).withdraw;
   const state = React.useContext(MyContext).state;
 
   const femaleEl = React.useRef(null);
@@ -74,9 +75,9 @@ const Stake = () => {
     },
     button: {
       margin: "16px 16px 8px 8px",
-      width: "100%",
       borderRadius: "14px",
       fontSize: "18px",
+      width: 'fit-content',
       fontWeight: 600,
     },
   }));
@@ -170,6 +171,7 @@ const Stake = () => {
             className={classes.selectElem}
             options={femaleData}
             onChange={handleChange}
+            isMulti
           />
         </Grid>
         <Grid container direction="row" alignItems="center">
@@ -232,6 +234,16 @@ const Stake = () => {
           className={classes.button}
         >
           STAKE
+        </Button>
+        <Button
+          onClick={() => {
+            withdraw();
+          }}
+          variant="contained"
+          color="primary"
+          className={classes.button}
+        >
+          WITHDRAW
         </Button>
       </Grid>
     </Grid>
