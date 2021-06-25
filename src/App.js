@@ -197,11 +197,11 @@ export default class App extends Component {
             )
             .then(async (response) => {
               self.setState({ staked: response.data });
-              let data = response.data;
+              let tokenData = response.data;
               let female = null;
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].gender === 1) {
-                  female = data[i];
+              for (let i = 0; i < tokenData.length; i++) {
+                if (tokenData[i].gender === 1 && data.includes(tokenData[i]['token_id'])) {
+                  female = tokenData[i];
                   break;
                 }
               }
@@ -209,8 +209,8 @@ export default class App extends Component {
                 const dateValue = await self.state.stakingPool.methods
                   .breedingEnd(female["token_id"])
                   .call();
-
-                const endDate = new Date(dateValue * 1000);
+                  
+                const endDate = new Date(dateValue*1000);
                 self.setState({ dueDate: endDate - new Date() });
               }
             });
@@ -280,8 +280,10 @@ export default class App extends Component {
         // handle success
         let data = response.data.assets;
         let token_ids = [];
+        let images = [];
         data.forEach((value) => {
           token_ids.push(value.token_id);
+          images.push(value.image_url);
         });
         // enable api when loading tokens from network
         axios
@@ -352,8 +354,9 @@ export default class App extends Component {
                   axios
                     .get(API_ADDRESS + "initiatedTokens", { params })
                     .then(({ data }) => {
-                      data = data.assets;
-                      data.forEach((ape) => {
+                      let returndata = data.assets;
+                      console.log(data)
+                      returndata.forEach((ape) => {
                         switch (ape["gender"]) {
                           case 1:
                             femaleId.push(ape);
@@ -406,17 +409,17 @@ export default class App extends Component {
         }
       });
 
-    this.state.apeToken.methods
-      .isApprovedForAll(this.state.account, this.state.apeToken._address)
-      .call()
-      .then((data) => {
-        if (!data) {
-          this.state.apeToken.methods
-            .setApprovalForAll(this.state.apeToken._address, true)
-            .send({ from: this.state.account })
-            .then("receipt", (receipt) => {});
-        }
-      });
+    // this.state.apeToken.methods
+    //   .isApprovedForAll(this.state.account, this.state.apeToken._address)
+    //   .call()
+    //   .then((data) => {
+    //     if (!data) {
+    //       this.state.apeToken.methods
+    //         .setApprovalForAll(this.state.apeToken._address, true)
+    //         .send({ from: this.state.account })
+    //         .then("receipt", (receipt) => {});
+    //     }
+    //   });
     ////////////////
   }
 

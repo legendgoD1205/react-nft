@@ -77,39 +77,56 @@ const Stake = () => {
       margin: "16px 16px 8px 8px",
       borderRadius: "14px",
       fontSize: "18px",
-      width: 'fit-content',
+      width: "fit-content",
       fontWeight: 600,
     },
   }));
 
   const classes = useStyles();
 
-  let femaleData = [];
-  femaleData.push({ label: "None", value: null });
+  let stakedIds = [];
+  state.staked.forEach((data) => {
+    stakedIds.push(data.token_id);
+  });
 
-  state.femaleId.forEach((data) =>
+  let femaleData = [];
+
+  state.femaleId.forEach((data) => {
+    if (stakedIds.indexOf(data.token_id) !== -1) return;
     femaleData.push({
-      label: data.name !== "null" && data.name !== null && data.name !== '' ? data.name : "NFA #" + data["token_id"],
+      label:
+        data.name !== "null" && data.name !== null && data.name !== ""
+          ? data.name
+          : "NFA #" + data["token_id"],
       value: data["token_id"],
-    })
-  );
+    });
+  });
 
   let maleData = [];
 
-  state.maleId.forEach((data) =>
+  state.maleId.forEach((data) => {
+    if (stakedIds.indexOf(data.token_id) !== -1) return;
     maleData.push({
-      label: data.name !== "null" && data.name !== null && data.name !== '' ? data.name : "NFA #" + data["token_id"],
+      label:
+        data.name !== "null" && data.name !== null && data.name !== ""
+          ? data.name
+          : "NFA #" + data["token_id"],
       value: data["token_id"],
-    })
-  );
+    });
+  });
 
   let babyData = [];
 
-  state.babyId.forEach((data) =>
+  state.babyId.forEach((data) => {
+    if (stakedIds.indexOf(data.token_id) !== -1) return;
     babyData.push({
-      label: data.name !== "null" && data.name !== null && data.name !== '' ? data.name : "NFA #" + data["token_id"],
+      label:
+        data.name !== "null" && data.name !== null && data.name !== ""
+          ? data.name
+          : "NFA #" + data["token_id"],
       value: data["token_id"],
     })
+  }
   );
 
   const [value, setValue] = React.useState([]);

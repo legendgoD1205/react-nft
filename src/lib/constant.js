@@ -9,8 +9,8 @@ export const CHAIN_ID = "0x1"
 // export const API_URL_BEFORE = "https://rinkeby-api.opensea.io/api/v1/assets?owner="
 // export const API_URL_AFTER = "&asset_contract_address=0x42f8666e87e509258e272d7c233cde11af78a8b1&order_direction=desc&offset=0&limit=50"
 // export const APETOKEN_ADDRESS = "0x42F8666E87E509258E272D7C233cDE11AF78a8B1"
-// // export const STAKINGPOOL_ADDRESS = "0xdB09C6C7Ad4c9976785dD35eA129e776Dd2e13bf"
-// export const STAKINGPOOL_ADDRESS = "0xb3c8479447F84C54F5F9ed4f1a63fbc29d60838b"
+// export const STAKINGPOOL_ADDRESS = "0xdB09C6C7Ad4c9976785dD35eA129e776Dd2e13bf"
+// export const STAKINGPOOL_ADDRESS = "0xfF9Ec80062cD6d8bAa5e0C5Bf1BD6b7dA4f86681"
 // export const CHAIN_ID = '0x4'
 
 // LOCAL ADDRESS

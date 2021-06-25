@@ -219,7 +219,7 @@ const StakingReward = ({ isMobile }) => {
             onClick={claimBaby}
             variant="contained"
             color="primary"
-            disabled={!babyActiveFlag}
+            disabled={!babyActiveFlag || dueDate !== 0}
             className={classes.button}
           >
             CLAIM
