@@ -209,7 +209,7 @@ export default class App extends Component {
                 const dateValue = await self.state.stakingPool.methods
                   .breedingEnd(female["token_id"])
                   .call();
-                  
+
                 const endDate = new Date(dateValue*1000);
                 self.setState({ dueDate: endDate - new Date() });
               }
@@ -299,6 +299,7 @@ export default class App extends Component {
         axios
           .put(API_ADDRESS + "tokens", {
             ids: token_ids,
+            images: images,
             account,
             chainId: window.ethereum.chainId,
           }) //sync tokes list
@@ -337,6 +338,7 @@ export default class App extends Component {
                     name: oneData["name"],
                     token_id: oneData["token_id"],
                     gender: oneData["gender"],
+                    img_url: oneData['image_url'],
                     traits: oneData["traits"].length,
                     chainId: window.ethereum.chainId,
                   });
