@@ -21,6 +21,14 @@ const Stake = () => {
       background: "#f1f1f1",
       position: "relative",
       padding: theme.spacing(3),
+      '& div.css-12jo7m5': {
+        display: 'flex',
+        alignItems: 'center',
+      },
+      '& div.css-12jo7m5 img': {
+        width: '20px',
+        height: '20px',
+      }
     },
     icon: {
       margin: theme.spacing(1),
@@ -78,6 +86,10 @@ const Stake = () => {
       width: "fit-content",
       fontWeight: 600,
     },
+    listIcon: {
+      width: '20px',
+      height: '20px',
+    }
   }));
 
   const classes = useStyles();
@@ -94,7 +106,7 @@ const Stake = () => {
     femaleData.push({
       label:
         data.name !== "null" && data.name !== null && data.name !== ""
-          ? data.name
+          ? <><img src={data.img_url} className={classes.listIcon} />{data.name}</>
           : "NFA #" + data["token_id"],
       value: data["token_id"],
     });
@@ -107,7 +119,7 @@ const Stake = () => {
     maleData.push({
       label:
         data.name !== "null" && data.name !== null && data.name !== ""
-          ? data.name
+          ? <><img src={data.img_url} className={classes.listIcon} />{data.name}</>
           : "NFA #" + data["token_id"],
       value: data["token_id"],
     });
@@ -120,7 +132,8 @@ const Stake = () => {
     babyData.push({
       label:
         data.name !== "null" && data.name !== null && data.name !== ""
-          ? data.name
+          // eslint-disable-next-line jsx-a11y/alt-text
+          ? <><img src={data.img_url} className={classes.listIcon} />{data.name}</>
           : "NFA #" + data["token_id"],
       value: data["token_id"],
     });
@@ -133,6 +146,7 @@ const Stake = () => {
   const [valueB, setValueB] = React.useState([]);
 
   const handleChange = (e) => {
+    console.log(e)
     setValue(e);
   };
 
