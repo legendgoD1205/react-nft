@@ -1,7 +1,7 @@
 import React from "react";
 import NFAStaked from "./components/NFAStaked";
-import NFSCard from "./components/NFACard";
-import TestCard from "./components/TestCard";
+import NFACard from "./components/NFACard";
+import StakedList from "./components/StakedList";
 import Stake from "./components/Stake";
 import OnStaking from "./components/OnStaking";
 import {
@@ -259,23 +259,21 @@ function Dashboard({ account, balance }) {
               />
             </Grid>
           </Grid>
-          {
-            //test block
-            // (<Grid className={classes.testBlock} item xs={12}>
-            //   <TestCard />
-            // </Grid>)
-          }
-
-          {
-            // end test block
-          }
           <Grid item>
             <Typography className={`${classes.firstTitle}`} variant="h4">
               MY NFAS
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <NFSCard />
+            <NFACard />
+          </Grid>
+          <Grid item>
+            <Typography className={`${classes.firstTitle}`} variant="h4">
+              STAKED LIST
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <StakedList />
           </Grid>
           <Grid container spacing={4}>
             <Grid item xs={12} md={4}>

@@ -16,8 +16,6 @@ import {
 import axios from "axios";
 
 const OnStaking = () => {
-  const params = { chainId: window.ethereum.chainId };
-
   const [staked, setStaked] = React.useState([]);
   const [bs, setBs] = React.useState(0);
   const [fs, setFs] = React.useState(0);
@@ -27,11 +25,12 @@ const OnStaking = () => {
   let females = 0;
   let males = 0;
   useEffect(() => {
+    const params = { chainId: window.ethereum.chainId };
+    if (!params.chainId) return;
     axios.get(API_ADDRESS + "/stakedList", { params }).then(({ data }) => {
       let stakedList = data.result;
-      console.log(stakedList);
       setStaked(stakedList);
-      stakedList.forEach((ape) => {
+      stakedList?.forEach((ape) => {
         switch (ape.gender) {
           case 1:
             females++;
@@ -47,7 +46,7 @@ const OnStaking = () => {
       setMs(males);
       setFs(females);
     });
-  }, []);
+  }, [window.ethereum.chainId]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -198,7 +197,7 @@ const OnStaking = () => {
         className={classes.totalBox}
       >
         <Typography variant="h3" className={classes.totalNumber}>
-          Total: {staked.length}
+          Total: {staked?.length}
         </Typography>
       </Grid>
     </Grid>

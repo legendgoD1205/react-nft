@@ -1,12 +1,10 @@
 import React from "react";
 import Select from "react-select";
-import { toast } from "react-toastify";
-import { Grid } from "@material-ui/core";
+import { Grid, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Female from "../assets/female-sign.png";
 import Male from "../assets/male-gender.png";
 import Baby from "../assets/baby.png";
-// import Flag from '../assets/flag.png';
 import Button from "@material-ui/core/Button";
 import MyContext from "../lib/context";
 
@@ -125,9 +123,8 @@ const Stake = () => {
           ? data.name
           : "NFA #" + data["token_id"],
       value: data["token_id"],
-    })
-  }
-  );
+    });
+  });
 
   const [value, setValue] = React.useState([]);
 
@@ -140,18 +137,10 @@ const Stake = () => {
   };
 
   const handleChangeM = (e) => {
-    if (e.length > 2) {
-      toast.error("2 Adult Male Max!");
-      return;
-    }
     setValueM(e);
   };
 
   const handleChangeB = (e) => {
-    if (e.length > 2) {
-      toast.error("2 Babies Max!");
-      return;
-    }
     setValueB(e);
   };
 
@@ -225,14 +214,6 @@ const Stake = () => {
             isMulti
           />
         </Grid>
-        {
-          //   <Grid container direction="row" alignItems="center">
-          //   <Grid className={classes.icon} container justify="center" alignItems="center">
-          //     <img width="60%" height="auto" src={Flag} alt="avatar"/>
-          //   </Grid>
-          //   <Grid className={classes.inputField} />
-          // </Grid>
-        }
       </Grid>
       <Grid
         item
@@ -248,9 +229,17 @@ const Stake = () => {
           }}
           variant="contained"
           color="primary"
+          disabled={state.isStaking}
           className={classes.button}
         >
-          STAKE
+          {state.isStaking ? (
+            <CircularProgress
+              color="primary"
+              style={{ width: "32px", height: "32px" }}
+            />
+          ) : (
+            "STAKE"
+          )}
         </Button>
         <Button
           onClick={() => {
@@ -258,9 +247,17 @@ const Stake = () => {
           }}
           variant="contained"
           color="primary"
+          disabled={state.isWithdraw}
           className={classes.button}
         >
-          WITHDRAW
+          {state.isWithdraw ? (
+            <CircularProgress
+              color="primary"
+              style={{ width: "32px", height: "32px" }}
+            />
+          ) : (
+            "WITHDRAW"
+          )}
         </Button>
       </Grid>
     </Grid>

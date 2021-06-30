@@ -35,6 +35,8 @@ export default class App extends Component {
       maleStakes: 0,
       babyStakes: 0,
       curRewards: 0,
+      isStaking: false,
+      isWithdraw: false,
     };
     this.connectWallet = this.connectWallet.bind(this);
     this.stake = this.stake.bind(this);
@@ -60,7 +62,7 @@ export default class App extends Component {
     // enable ethereum
     await window.ethereum.enable();
     if (CHAIN_ID !== window.ethereum.chainId) {
-      toast.error("Please select ethereum mainnet!")
+      toast.error("Please select ethereum mainnet!");
       return;
     }
     let res = await this.loadWeb3();
@@ -146,7 +148,7 @@ export default class App extends Component {
 
   async loadBlockchainData() {
     if (CHAIN_ID !== window.ethereum.chainId) {
-      toast.error("Please select ethereum mainnet!")
+      toast.error("Please select ethereum mainnet!");
       return;
     }
     const web3 = window.web3;
@@ -200,7 +202,10 @@ export default class App extends Component {
               let tokenData = response.data;
               let female = null;
               for (let i = 0; i < tokenData.length; i++) {
-                if (tokenData[i].gender === 1 && data.includes(tokenData[i]['token_id'])) {
+                if (
+                  tokenData[i].gender === 1 &&
+                  data.includes(tokenData[i]["token_id"])
+                ) {
                   female = tokenData[i];
                   break;
                 }
@@ -210,7 +215,7 @@ export default class App extends Component {
                   .breedingEnd(female["token_id"])
                   .call();
 
-                const endDate = new Date(dateValue*1000);
+                const endDate = new Date(dateValue * 1000);
                 self.setState({ dueDate: endDate - new Date() });
               }
             });
@@ -249,11 +254,11 @@ export default class App extends Component {
     setInterval(() => {
       if (this.state.stakingPool !== null) {
         self.state.stakingPool.methods
-        .earned(self.state.account)
-        .call({ from: self.state.account })
-        .then((data) => {
-          self.setState({ curRewards: Math.floor(data * 100 + 0.5) / 100 });
-        });
+          .earned(self.state.account)
+          .call({ from: self.state.account })
+          .then((data) => {
+            self.setState({ curRewards: Math.floor(data * 100 + 0.5) / 100 });
+          });
       }
     }, 6000);
     // ///////////////////////////
@@ -338,10 +343,12 @@ export default class App extends Component {
                     name: oneData["name"],
                     token_id: oneData["token_id"],
                     gender: oneData["gender"],
-                    img_url: oneData['image_url'],
+                    img_url: oneData["image_url"],
                     traits: oneData["traits"].length,
                     chainId: window.ethereum.chainId,
                   });
+
+                  console.log(oneData);
                 }
               });
 
@@ -357,7 +364,7 @@ export default class App extends Component {
                     .get(API_ADDRESS + "initiatedTokens", { params })
                     .then(({ data }) => {
                       let returndata = data.assets;
-                      console.log(data)
+                      console.log(data);
                       returndata.forEach((ape) => {
                         switch (ape["gender"]) {
                           case 1:
@@ -394,6 +401,9 @@ export default class App extends Component {
       return;
     }
 
+    // set is Staking ////
+    this.setState({ isStaking: true });
+
     // set approval ////
     this.state.apeToken.methods
       .isApprovedForAll(this.state.account, this.state.stakingPool._address)
@@ -403,12 +413,19 @@ export default class App extends Component {
           this.state.apeToken.methods
             .setApprovalForAll(this.state.stakingPool._address, true)
             .send({ from: this.state.account })
+            .on("reject", () => {
+              this.setState({ isStaking: false });
+            })
             .then((data) => {
               this.stakeAction(f, m, b, reset);
             });
         } else {
           this.stakeAction(f, m, b, reset);
         }
+      })
+      .catch((err) => {
+        // disable isStaking ////
+        this.setState({ isStaking: false });
       });
 
     // this.state.apeToken.methods
@@ -426,6 +443,7 @@ export default class App extends Component {
   }
 
   withdraw() {
+    this.setState({ isWithdraw: true });
     if (this.state.stakingPool === null || this.state.apeToken === null) {
       toast.error("Failed loading Contract!");
       return;
@@ -433,7 +451,9 @@ export default class App extends Component {
 
     this.state.stakingPool.methods
       .withdrawAll()
-      .send({ from: this.state.account });
+      .send({ from: this.state.account })
+      .then((data) => this.setState({ isWithdraw: false }))
+      .catch((err) => this.setState({ isWithdraw: false }));
   }
 
   stakeAction(f, m, b, reset) {
@@ -459,9 +479,14 @@ export default class App extends Component {
         .send({ from: this.state.account })
         .then((data) => {
           reset();
+          this.setState({ isStaking: false });
           self.loadBlockchainData();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          this.setState({ isStaking: false });
+        });
+    } else {
+      this.setState({ isStaking: false });
     }
   }
 
