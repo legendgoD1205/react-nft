@@ -56,7 +56,7 @@ const StakedList = () => {
         alignItems="center"
       >
         {state.staked.length === 0 && (
-          <Typography variant="h3">There is no staked ape!</Typography>
+          <Typography variant="h4" style={{color: 'gray', padding: '8px', textAlign: 'center'}}>There is no staked ape!</Typography>
         )}
         {state.staked.map((ape, index) => {
           // eslint-disable-next-line jsx-a11y/alt-text
