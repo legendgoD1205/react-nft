@@ -200,20 +200,29 @@ export default class App extends Component {
             .then(async (response) => {
               self.setState({ staked: response.data });
               let tokenData = response.data;
-              let female = null;
+              let females = [];
               for (let i = 0; i < tokenData.length; i++) {
                 if (
                   tokenData[i].gender === 1 &&
                   data.includes(tokenData[i]["token_id"])
                 ) {
-                  female = tokenData[i];
-                  break;
+                  females.push(tokenData[i]);
                 }
               }
-              if (female !== null) {
-                const dateValue = await self.state.stakingPool.methods
-                  .breedingEnd(female["token_id"])
+              if (females.length !== 0) {
+                let dateValue = await self.state.stakingPool.methods
+                  .breedingEnd(females[0]["token_id"])
                   .call();
+
+                for (let i = 1; i < females.length; i++) {
+                  let curValue = await self.state.stakingPool.methods
+                    .breedingEnd(females[i]["token_id"])
+                    .call();
+
+                  if (curValue < dateValue) {
+                    dateValue = curValue;
+                  }
+                }
 
                 const endDate = new Date(dateValue * 1000);
                 self.setState({ dueDate: endDate - new Date() });
