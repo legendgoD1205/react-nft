@@ -10,12 +10,14 @@ import {
   API_URL_AFTER,
   API_URL_BEFORE,
   APETOKEN_ADDRESS,
-  STAKINGPOOL_ADDRESS,
+  STAKINGPOOLV1_ADDRESS,
+  STAKINGPOOLV2_ADDRESS as STAKINGPOOL_ADDRESS,
   API_ADDRESS,
   CHAIN_ID,
 } from "./lib/constant";
 import Apetoken from "./abis/ApeToken.json";
-import Stakingpool from "./abis/StakingPoolNew.json";
+import StakingpoolV1 from "./abis/StakingPoolNew.json";
+import Stakingpool from "./abis/StakingPoolV2.json";
 import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
@@ -27,6 +29,7 @@ export default class App extends Component {
       balance: "",
       apeToken: null,
       stakingPool: null,
+      stakingPoolV1: null,
       femaleId: [],
       maleId: [],
       babyId: [],
@@ -43,6 +46,7 @@ export default class App extends Component {
     this.claimBaby = this.claimBaby.bind(this);
     this.getReward = this.getReward.bind(this);
     this.withdraw = this.withdraw.bind(this);
+    this.migrateV1 = this.migrateV1.bind(this);
   }
 
   componentDidMount() {
@@ -101,6 +105,7 @@ export default class App extends Component {
             balance: "",
             apeToken: null,
             stakingPool: null,
+            stakingPoolV1: null,
             femaleId: [],
             maleId: [],
             babyId: [],
@@ -174,6 +179,18 @@ export default class App extends Component {
     } catch (err) {
       console.log(err);
       this.setState({ stakingPool: null });
+    }
+
+    try {
+      const stakingPoolV1 = new web3.eth.Contract(
+        StakingpoolV1,
+        STAKINGPOOLV1_ADDRESS
+      );
+
+      this.setState({ stakingPoolV1 });
+    } catch (err) {
+      console.log(err);
+      this.setState({ stakingPoolV1: null });
     }
 
     // Load balances
@@ -348,16 +365,19 @@ export default class App extends Component {
                     oneData["gender"] = (oneData["id"] % 3) + 1; // for RINKEBY
                   }
 
-                  addData.push({
-                    name: oneData["name"],
-                    token_id: oneData["token_id"],
-                    gender: oneData["gender"],
-                    img_url: oneData["image_url"],
-                    traits: oneData["traits"].length,
-                    chainId: window.ethereum.chainId,
-                  });
-
-                  console.log(oneData);
+                  if (
+                    oneData.hasOwnProperty("gender") &&
+                    oneData["gender"] != null
+                  ) {
+                    addData.push({
+                      name: oneData["name"],
+                      token_id: oneData["token_id"],
+                      gender: oneData["gender"],
+                      img_url: oneData["image_url"],
+                      traits: oneData["traits"].length,
+                      chainId: window.ethereum.chainId,
+                    });
+                  }
                 }
               });
 
@@ -458,11 +478,30 @@ export default class App extends Component {
       return;
     }
 
-    this.state.stakingPool.methods
-      .withdrawAll()
-      .send({ from: this.state.account })
-      .then((data) => this.setState({ isWithdraw: false }))
-      .catch((err) => this.setState({ isWithdraw: false }));
+    this.state.stakingPoolV1.methods
+      .getStaked(this.state.account)
+      .call()
+      .then((data) => {
+        if (data.length === 0) {
+          this.state.stakingPool.methods
+            .withdrawAll()
+            .send({ from: this.state.account })
+            .then((data) => this.setState({ isWithdraw: false }))
+            .catch((err) => this.setState({ isWithdraw: false }));
+        } else {
+          this.state.stakingPoolV1.methods
+            .withdrawAll()
+            .send({ from: this.state.account })
+            .then((data) => {
+              this.state.stakingPool.methods
+                .withdrawAll()
+                .send({ from: this.state.account })
+                .then((data) => this.setState({ isWithdraw: false }))
+                .catch((err) => this.setState({ isWithdraw: false }));
+            })
+            .catch((err) => this.setState({ isWithdraw: false }));
+        }
+      });
   }
 
   stakeAction(f, m, b, reset) {
@@ -554,6 +593,48 @@ export default class App extends Component {
           .then((data) => {
             self.loadBlockchainData();
           });
+      });
+  }
+
+  migrateV1() {
+    this.state.stakingPoolV1.methods
+      .getStaked(this.state.account)
+      .call({ from: this.state.account })
+      .then((data) => {
+        this.state.apeToken.methods
+          .isApprovedForAll(this.state.account, this.state.stakingPool._address)
+          .call()
+          .then((result) => {
+            if (result) {
+              this.state.stakingPoolV1.methods
+                .withdrawAll()
+                .send({ from: this.state.account })
+                .then((res) => {
+                  this.state.stakingPool.methods
+                    .migrateV1(data)
+                    .send({ from: this.state.account })
+                    .then(console.log)
+                    .catch(console.log);
+                });
+            } else {
+              this.state.apeToken.methods
+                .setApprovalForAll(this.state.stakingPool._address, true)
+                .send({ from: this.state.account })
+                .then((result) => {
+                  this.state.stakingPoolV1.methods
+                    .withdrawAll()
+                    .send({ from: this.state.account })
+                    .then((res) => {
+                      this.state.stakingPool.methods
+                        .migrateV1(data)
+                        .send({ from: this.state.account })
+                        .then(console.log)
+                        .catch(console.log);
+                    });
+                });
+            }
+          });
+        console.log(data);
       });
   }
 

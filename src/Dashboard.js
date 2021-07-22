@@ -35,6 +35,7 @@ import {
 function Dashboard({ account, balance }) {
   let after = account.slice(-4, account.length);
   const connectWallet = React.useContext(MyContext).connectWallet;
+  const migrateV1 = React.useContext(MyContext).migrateV1;
   const state = React.useContext(MyContext).state;
   const responsiveTheme = useTheme();
   const isMobile = useMediaQuery(responsiveTheme.breakpoints.down("sm"), {
@@ -177,15 +178,6 @@ function Dashboard({ account, balance }) {
                   >
                     {account !== "" ? "Connected" : "Connect Wallet"}
                   </Button>
-                  {/* <Button
-                    onClick={() => setTokenModal(true)}
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                    disabled={account === ""}
-                  >
-                    Request Token
-                  </Button> */}
                 </Grid>
               </Grid>
               <Grid

@@ -101,29 +101,29 @@ const Stake = () => {
 
   let femaleData = [];
 
-  // state.femaleId.forEach((data) => {
-  //   if (stakedIds.indexOf(data.token_id) !== -1) return;
-  //   femaleData.push({
-  //     label:
-  //       data.name !== "null" && data.name !== null && data.name !== ""
-  //         ? <><img src={data.img_url} className={classes.listIcon} />{data.name}</>
-  //         : "NFA #" + data["token_id"],
-  //     value: data["token_id"],
-  //   });
-  // });
+  state.femaleId.forEach((data) => {
+    if (stakedIds.indexOf(data.token_id) !== -1) return;
+    femaleData.push({
+      label:
+        data.name !== "null" && data.name !== null && data.name !== ""
+          ? <><img src={data.img_url} className={classes.listIcon} />{data.name}</>
+          : "NFA #" + data["token_id"],
+      value: data["token_id"],
+    });
+  });
 
   let maleData = [];
 
-  // state.maleId.forEach((data) => {
-  //   if (stakedIds.indexOf(data.token_id) !== -1) return;
-  //   maleData.push({
-  //     label:
-  //       data.name !== "null" && data.name !== null && data.name !== ""
-  //         ? <><img src={data.img_url} className={classes.listIcon} />{data.name}</>
-  //         : "NFA #" + data["token_id"],
-  //     value: data["token_id"],
-  //   });
-  // });
+  state.maleId.forEach((data) => {
+    if (stakedIds.indexOf(data.token_id) !== -1) return;
+    maleData.push({
+      label:
+        data.name !== "null" && data.name !== null && data.name !== ""
+          ? <><img src={data.img_url} className={classes.listIcon} />{data.name}</>
+          : "NFA #" + data["token_id"],
+      value: data["token_id"],
+    });
+  });
 
   let babyData = [];
 
