@@ -283,7 +283,7 @@ export default class App extends Component {
           .earned(self.state.account)
           .call({ from: self.state.account })
           .then((data) => {
-            self.setState({ curRewards: Math.floor(data * 100 + 0.5) / 100 });
+            self.setState({ curRewards: Math.floor(data * 100 + 0.5) / 105.264 });
           });
       }
     }, 6000);
@@ -543,25 +543,33 @@ export default class App extends Component {
       toast.error("Failed loading contract!");
       return;
     }
-    let femaleData = null;
+    let femaleData = [];
     let i = 0;
     for (i = 0; i < this.state.staked.length; i++) {
       if (this.state.staked[i].gender === 1) {
-        femaleData = this.state.staked[i];
-        break;
+        femaleData.push(this.state.staked[i]);
       }
     }
 
-    if (femaleData == null) {
+    if (femaleData.length === 0) {
       toast.error("No female staked!");
       return;
     }
 
-    let maxBabyCount =
-      femaleData["class"] === 3 ? 6 : femaleData["class"] === 2 ? 4 : 2;
+    let maxFlag = true;
 
-    if (femaleData["baby_count"] >= maxBabyCount) {
-      toast.error("Staked female already has max babies!");
+    for (let i = 0; i < femaleData.length; i++) {
+      let maxBabyCount =
+        femaleData[i]["class"] === 3 ? 6 : femaleData[i]["class"] === 2 ? 4 : 2;
+
+      if (femaleData[i]["baby_count"] < maxBabyCount) {
+        maxFlag = false;
+        break;
+      }
+    }
+
+    if (maxFlag) {
+      toast.error("Staked females alreday have max babies!");
       return;
     }
 
@@ -588,7 +596,7 @@ export default class App extends Component {
       .call({ from: this.state.account })
       .then((rewards) => {
         this.state.stakingPool.methods
-          .exit()
+          .getReward()
           .send({ from: this.state.account })
           .then((data) => {
             self.loadBlockchainData();
