@@ -212,7 +212,9 @@ export default class App extends Component {
                 "stakedTokens?ids=" +
                 JSON.stringify(data) +
                 "&chainId=" +
-                window.ethereum.chainId
+                window.ethereum.chainId +
+                "&account=" +
+                accounts[0]
             )
             .then(async (response) => {
               self.setState({ staked: response.data });
@@ -283,7 +285,9 @@ export default class App extends Component {
           .earned(self.state.account)
           .call({ from: self.state.account })
           .then((data) => {
-            self.setState({ curRewards: Math.floor(data * 100 + 0.5) / 105.264 });
+            self.setState({
+              curRewards: Math.floor(data * 100 + 0.5) / 105.264,
+            });
           });
       }
     }, 6000);
